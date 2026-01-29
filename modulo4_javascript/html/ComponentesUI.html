@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Estilos base para el menú hamburguesa */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 1rem;
+            color: white;
+        }
+
+        .logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .hamburger-menu {
+            display: none;
+            /* Ocultar por defecto en desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1000;
+            /* Asegurar que esté encima de otros elementos */
+        }
+
+        .hamburger-menu .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+
+        /* Media Queries para pantallas más pequeñas (ej. móviles) */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: block;
+                /* Mostrar botón hamburguesa en móviles */
+            }
+
+            .nav-links {
+                display: none;
+                /* Ocultar menú en móviles por defecto */
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                /* Ajustar según la altura del navbar */
+                left: 0;
+                background-color: #444;
+                text-align: center;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+                /* Mostrar menú cuando tenga la clase 'active' */
+            }
+        }
+
+        .modal {
+            display: none;
+            /* Oculto por defecto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            /* Asegura que esté por encima de todo */
+            overflow-y: auto;
+            /* Permite desplazamiento si el contenido es largo */
+        }
+
+        .modal.active {
+            display: flex;
+            /* Mostrar cuando tenga la clase 'active' */
+            align-items: center;
+            /* Centrar verticalmente */
+            justify-content: center;
+            /* Centrar horizontalmente */
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* Fondo oscuro semitransparente */
+            cursor: pointer;
+            /* Indica que es clicable */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1001;
+            /* Por encima del overlay */
+            max-width: 700px;
+            width: 90%;
+            box-sizing: border-box;
+            transform: scale(0.9);
+            /* Pequeña animación de entrada */
+            opacity: 0;
+            transition: all 0.3s ease-out;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #333;
+        }
+
+        /* ========== CARRUSEL DE IMÁGENES ========== */
+        /* Contenedor principal del carrusel */
+        .carousel-container {
+            position: relative;
+            /* Permite posicionar los botones de navegación absolutamente */
+            width: 90%;
+            /* Ocupa el 90% del ancho disponible */
+            max-width: 600px;
+            /* Máximo 600px de ancho */
+            margin: 50px auto;
+            /* Centrado horizontalmente con margen superior/inferior */
+            overflow: hidden;
+            /* Oculta el contenido que se sale del contenedor */
+            border-radius: 12px;
+            /* Bordes redondeados */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            /* Sombra suave */
+            background-color: #f5f5f5;
+            /* Fondo gris claro */
+        }
+
+        /* Contenedor que limita la altura del carrusel */
+        .carousel-track-container {
+            width: 100%;
+            position: relative;
+            height: 400px;
+            /* Altura fija de 400px para el carrusel */
+            overflow: hidden;
+            /* Oculta los slides que están fuera de vista */
+        }
+
+        /* Track (pista) que contiene todos los slides */
+        .carousel-track {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            /* Quita los puntos de la lista */
+            position: relative;
+            height: 100%;
+            /* Usa toda la altura del contenedor (400px) */
+            display: flex;
+            /* Flexbox para alinear slides horizontalmente */
+            transition: transform 0.5s ease-in-out;
+            /* Animación suave al cambiar de slide */
+        }
+
+        /* Cada slide individual del carrusel */
+        .carousel-slide {
+            min-width: 100%;
+            /* Cada slide ocupa el 100% del ancho del contenedor */
+            width: 100%;
+            box-sizing: border-box;
+            /* Incluye padding y border en el ancho total */
+            position: relative;
+            height: 100%;
+            /* Usa toda la altura disponible */
+            flex-shrink: 0;
+            /* Evita que el slide se encoja */
+            display: flex;
+            /* Flexbox para organizar imagen y caption verticalmente */
+            flex-direction: column;
+            /* Apila imagen arriba y caption abajo */
+        }
+
+        /* Imágenes dentro de cada slide */
+        .carousel-slide img {
+            width: 100%;
+            /* Ocupa todo el ancho del slide */
+            max-height: 330px;
+            /* Limita la altura para dejar espacio al caption (70px) */
+            flex: 1;
+            /* Crece para ocupar el espacio disponible */
+            object-fit: contain;
+            /* Mantiene proporción sin cortar la imagen */
+            display: block;
+            background-color: #fff;
+            /* Fondo blanco para las imágenes */
+        }
+
+        /* Texto descriptivo (caption) debajo de cada imagen */
+        .slide-caption {
+            position: relative;
+            /* Posición normal en el flujo del documento */
+            width: 100%;
+            min-height: 60px;
+            /* Altura mínima de 60px */
+            background: #000000;
+            /* Fondo negro sólido */
+            color: #ffffff;
+            /* Texto blanco */
+            padding: 15px 20px;
+            /* Espaciado interno */
+            font-size: 1.1em;
+            /* Tamaño de fuente 1.1 veces el tamaño base */
+            font-weight: 600;
+            /* Texto semi-negrita */
+            text-align: center;
+            /* Texto centrado */
+            box-sizing: border-box;
+            display: flex;
+            /* Flexbox para centrar el texto */
+            align-items: center;
+            /* Centra verticalmente */
+            justify-content: center;
+            /* Centra horizontalmente */
+            flex-shrink: 0;
+            /* No se encoge, mantiene su altura mínima */
+        }
+
+        /* Efecto hover en el caption */
+        .carousel-slide:hover .slide-caption {
+            background: #1a1a1a;
+            /* Fondo ligeramente más claro al pasar el mouse */
+        }
+
+        /* Botones de navegación (anterior/siguiente) */
+        .carousel-button {
+            position: absolute;
+            /* Posición absoluta sobre el carrusel */
+            top: 50%;
+            /* Posiciona en el centro vertical */
+            transform: translateY(-50%);
+            /* Centra exactamente usando transform */
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Fondo negro semi-transparente */
+            color: #fff;
+            /* Texto/icono blanco */
+            border: none;
+            /* Sin borde */
+            padding: 12px 15px;
+            /* Espaciado interno */
+            cursor: pointer;
+            /* Cursor de manita al pasar el mouse */
+            font-size: 1.3em;
+            /* Tamaño de los símbolos < > */
+            z-index: 10;
+            /* Aparece sobre las imágenes */
+            transition: all 0.3s ease;
+            /* Transición suave en todos los cambios */
+            border-radius: 5px;
+            /* Bordes redondeados */
+        }
+
+        /* Efecto hover en los botones */
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Fondo más oscuro al pasar el mouse */
+            transform: translateY(-50%) scale(1.1);
+            /* Agranda ligeramente el botón */
+        }
+
+        /* Botón anterior (izquierda) */
+        .carousel-button.prev {
+            left: 15px;
+            /* 15px desde el borde izquierdo */
+        }
+
+        /* Botón siguiente (derecha) */
+        .carousel-button.next {
+            right: 15px;
+            /* 15px desde el borde derecho */
+        }
+
+        /* Contenedor de los indicadores (puntos) de navegación */
+        .carousel-nav {
+            display: flex;
+            /* Flexbox para alinear los puntos horizontalmente */
+            justify-content: center;
+            /* Centra los puntos */
+            padding: 18px 0;
+            /* Espaciado vertical */
+            gap: 12px;
+            /* Espacio entre cada punto */
+            background-color: #fff;
+            /* Fondo blanco */
+        }
+
+        /* Cada indicador (punto) individual */
+        .carousel-indicator {
+            background-color: #ddd;
+            /* Color gris claro por defecto */
+            width: 10px;
+            /* Ancho de 10px */
+            height: 10px;
+            /* Alto de 10px (círculo) */
+            border-radius: 50%;
+            /* Hace el indicador circular */
+            cursor: pointer;
+            /* Cursor de manita, es clicable */
+            border: none;
+            /* Sin borde */
+            transition: all 0.3s ease;
+            /* Transición suave en todos los cambios */
+        }
+
+        /* Efecto hover en los indicadores */
+        .carousel-indicator:hover {
+            background-color: #999;
+            /* Más oscuro al pasar el mouse */
+            transform: scale(1.2);
+            /* Agranda ligeramente */
+        }
+
+        /* Indicador activo (slide actual) */
+        .carousel-indicator.active {
+            background-color: #333;
+            /* Color oscuro para el slide activo */
+            width: 30px;
+            /* Se alarga horizontalmente */
+            border-radius: 5px;
+            /* Cambia de círculo a rectángulo redondeado */
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            display: block;
+            /* Asegura que el mensaje de error ocupe su propia línea */
+            margin-top: 5px;
+        }
+
+        /* ========== ESTILOS DEL FORMULARIO DE CONTACTO ========== */
+        /* Contenedor del formulario con diseño moderno */
+        #contactForm {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffffff 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
+            max-width: 500px;
+            width: 100%;
+            animation: formSlideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Línea negra que recorre todo el borde del formulario */
+        #contactForm::before {
+            content: '';
+            position: absolute;
+            background: #000000;
+            z-index: 10;
+            border-radius: 3px;
+            animation: borderAnimation 5s linear infinite;
+        }
+
+        /* Animación suave que recorre todo el perímetro sin desapariciones bruscas */
+        @keyframes borderAnimation {
+            /* Línea superior: crece de izquierda a derecha */
+            0% {
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 3px;
+                opacity: 1;
+            }
+            23% {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                opacity: 1;
+            }
+            /* Transición suave a línea derecha */
+            25% {
+                top: 0;
+                right: 0;
+                left: auto;
+                width: 3px;
+                height: 0;
+                opacity: 1;
+            }
+            /* Línea derecha: crece de arriba hacia abajo */
+            48% {
+                top: 0;
+                right: 0;
+                left: auto;
+                width: 3px;
+                height: 100%;
+                opacity: 1;
+            }
+            /* Transición suave a línea inferior */
+            50% {
+                bottom: 0;
+                right: 0;
+                top: auto;
+                left: auto;
+                width: 0;
+                height: 3px;
+                opacity: 1;
+            }
+            /* Línea inferior: crece de derecha a izquierda */
+            73% {
+                bottom: 0;
+                right: 0;
+                top: auto;
+                left: auto;
+                width: 100%;
+                height: 3px;
+                opacity: 1;
+            }
+            /* Transición suave a línea izquierda */
+            75% {
+                bottom: 0;
+                left: 0;
+                right: auto;
+                top: auto;
+                width: 3px;
+                height: 0;
+                opacity: 1;
+            }
+            /* Línea izquierda: crece de abajo hacia arriba */
+            98% {
+                bottom: 0;
+                left: 0;
+                right: auto;
+                top: auto;
+                width: 3px;
+                height: 100%;
+                opacity: 1;
+            }
+            /* Transición suave de vuelta al inicio */
+            100% {
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 3px;
+                opacity: 1;
+            }
+        }
+
+        /* Animación de entrada del formulario */
+        @keyframes formSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Grupos de campos del formulario */
+        #contactForm div {
+            margin-bottom: 25px;
+            position: relative;
+            animation: fieldFadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Animación escalonada para cada campo */
+        #contactForm div:nth-child(1) { animation-delay: 0.1s; }
+        #contactForm div:nth-child(2) { animation-delay: 0.2s; }
+        #contactForm div:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fieldFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Etiquetas del formulario */
+        #contactForm label {
+            display: block;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Inputs y textarea con estilos modernos */
+        #contactForm input,
+        #contactForm textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.95);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        /* Efecto focus en inputs */
+        #contactForm input:focus,
+        #contactForm textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Textarea con altura personalizada */
+        #contactForm textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        /* Botón de envío elegante */
+        #contactForm button[type="submit"] {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            margin-top: 15px;
+            animation: buttonPulse 2s infinite;
+        }
+
+        /* Animación de pulso sutil en el botón */
+        @keyframes buttonPulse {
+            0%, 100% {
+                box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+            }
+            50% {
+                box-shadow: 0 6px 30px rgba(255, 107, 53, 0.7);
+            }
+        }
+
+        /* Efecto hover en el botón */
+        #contactForm button[type="submit"]:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 35px rgba(255, 107, 53, 0.6);
+            background: linear-gradient(135deg, #f7931e 0%, #ff6b35 100%);
+        }
+
+        /* Efecto active (al hacer clic) */
+        #contactForm button[type="submit"]:active {
+            transform: translateY(-1px) scale(0.98);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Mensajes de error elegantes */
+        .error-message {
+            display: block;
+            color: #ff6b6b;
+            font-size: 0.85em;
+            margin-top: 6px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 12px;
+            border-radius: 8px;
+            animation: errorShake 0.5s ease-in-out;
+        }
+
+        /* Animación de temblor para errores */
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        /* Estilos para inputs inválidos */
+        input:invalid,
+        textarea:invalid {
+            border-color: #ff6b6b;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            if (hamburgerBtn && navLinks) {
+                hamburgerBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('active'); // Alterna la clase 'active' en el menú
+                    hamburgerBtn.classList.toggle('open'); // Opcional: para animar el icono de hamburguesa
+                });
+                // Opcional: Cerrar menú al hacer clic en un enlace (si es un menú de navegación tipo "single page")
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navLinks.classList.remove('active');
+                        hamburgerBtn.classList.remove('open');
+                    });
+                });
+            }
+
+            // colocar color rojo el menu hamburguesa al abrirse
+            hamburgerBtn.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) {
+                    hamburgerBtn.style.backgroundColor = '#ffd000';
+                } else {
+
+                    hamburgerBtn.style.backgroundColor = 'transparent';
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const openModalBtns = document.querySelectorAll('.open-modal-btn');
+            const closeModalBtns = document.querySelectorAll('.close-modal-btn');
+            const modals = document.querySelectorAll('.modal');
+
+            // Función para abrir un modal específico
+            function openModal(modalId) {
+                const targetModal = document.getElementById(modalId);
+                if (targetModal) {
+                    targetModal.classList.add('active');
+                    targetModal.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
+                    targetModal.querySelector('.modal-content').focus(); // Mover foco al contenido del modal para accesibilidad
+                }
+            }
+
+            // Función para cerrar un modal específico
+            function closeModal(modalElement) {
+                if (modalElement && modalElement.classList.contains('active')) {
+                    modalElement.classList.remove('active');
+                    modalElement.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = ''; // Restaura el scroll del fondo
+                }
+            }
+
+            // Abrir modal al hacer clic en el botón
+            openModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const modalId = btn.dataset.modalTarget;
+                    openModal(modalId);
+                });
+            });
+
+            // Cerrar modal al hacer clic en el botón de cerrar o en el overlay
+            modals.forEach(modal => {
+                const overlay = modal.querySelector('.modal-overlay');
+                const closeBtn = modal.querySelector('.close-modal-btn');
+
+                if (overlay) {
+                    overlay.addEventListener('click', () => closeModal(modal));
+                }
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => closeModal(modal));
+                }
+            });
+
+            // Cerrar modal al presionar la tecla ESC
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    modals.forEach(modal => {
+                        if (modal.classList.contains('active')) {
+                            closeModal(modal);
+                        }
+                    });
+                }
+            });
+        });
+
+        /* ========== JAVASCRIPT DEL CARRUSEL ========== */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Espera a que el DOM esté completamente cargado antes de ejecutar el código
+
+            // Selecciona los elementos del carrusel del DOM
+            const carouselTrack = document.querySelector('.carousel-track'); // La pista que contiene todos los slides
+            const slides = Array.from(carouselTrack.children); // Convierte los slides en un array para facilitar su manipulación
+            const nextButton = document.querySelector('.carousel-button.next'); // Botón de siguiente
+            const prevButton = document.querySelector('.carousel-button.prev'); // Botón de anterior
+            const carouselNav = document.querySelector('.carousel-nav'); // Contenedor de los indicadores
+
+            let currentSlideIndex = 0; // Variable que guarda el índice del slide actual (empieza en 0)
+
+            // Función para mover el carrusel a un slide específico
+            const moveToSlide = (index) => {
+                // translateX mueve el track horizontalmente
+                // -100% mueve un slide completo a la izquierda
+                // index * 100% mueve tantos slides como indique el índice
+                carouselTrack.style.transform = `translateX(-${index * 100}%)`;
+
+                // Remueve la clase 'active-slide' de todos los slides
+                slides.forEach(slide => slide.classList.remove('active-slide'));
+
+                // Añade la clase 'active-slide' al slide actual
+                slides[index].classList.add('active-slide');
+            };
+
+            // Función para actualizar los indicadores (puntos)
+            const updateIndicators = (index) => {
+                // Remueve la clase 'active' de todos los indicadores
+                indicators.forEach(ind => ind.classList.remove('active'));
+
+                // Añade la clase 'active' al indicador correspondiente al slide actual
+                indicators[index].classList.add('active');
+            };
+
+            // Generar indicadores de navegación dinámicamente
+            slides.forEach((slide, index) => {
+                // Por cada slide, crea un botón indicador
+                const indicator = document.createElement('button');
+                indicator.classList.add('carousel-indicator'); // Añade la clase CSS
+                indicator.setAttribute('aria-label', `Ir al slide ${index + 1}`); // Para accesibilidad
+                indicator.dataset.slideIndex = index; // Guarda el índice en un atributo data
+                carouselNav.appendChild(indicator); // Añade el indicador al contenedor
+            });
+
+            const indicators = Array.from(carouselNav.children); // Convierte los indicadores en array
+
+            // Establecer el primer slide y su indicador como activos inicialmente
+            slides[currentSlideIndex].classList.add('active-slide');
+            indicators[currentSlideIndex].classList.add('active');
+
+            // Navegación con flecha Siguiente
+            nextButton.addEventListener('click', () => {
+                // Incrementa el índice, y vuelve a 0 si llega al final (% es módulo)
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                moveToSlide(currentSlideIndex); // Mueve al siguiente slide
+                updateIndicators(currentSlideIndex); // Actualiza los indicadores
+            });
+
+            // Navegación con flecha Anterior
+            prevButton.addEventListener('click', () => {
+                // Decrementa el índice, y va al último si está en el primero
+                currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+                moveToSlide(currentSlideIndex); // Mueve al slide anterior
+                updateIndicators(currentSlideIndex); // Actualiza los indicadores
+            });
+
+            // Navegación con indicadores de puntos
+            carouselNav.addEventListener('click', (e) => {
+                // Verifica si el clic fue en un indicador
+                const targetIndicator = e.target.closest('.carousel-indicator');
+                if (!targetIndicator) return; // Si no fue en un indicador, no hace nada
+
+                // Obtiene el índice del slide desde el atributo data
+                currentSlideIndex = parseInt(targetIndicator.dataset.slideIndex);
+                moveToSlide(currentSlideIndex); // Mueve al slide seleccionado
+                updateIndicators(currentSlideIndex); // Actualiza los indicadores
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contactForm');
+            const nombreInput = document.getElementById('nombre');
+            const emailInput = document.getElementById('email');
+            const mensajeInput = document.getElementById('mensaje');
+
+            const errorNombre = document.getElementById('errorNombre');
+            const errorEmail = document.getElementById('errorEmail');
+            const errorMensaje = document.getElementById('errorMensaje');
+
+            // Función para mostrar un mensaje de error
+            const mostrarError = (elementoError, mensaje) => {
+                elementoError.textContent = mensaje;
+                elementoError.style.display = 'block'; // Mostrar el span del error
+            };
+
+            // Función para ocultar un mensaje de error
+            const ocultarError = (elementoError) => {
+                elementoError.textContent = '';
+                elementoError.style.display = 'none'; // Ocultar el span del error
+            };
+
+            // Validar campo de nombre
+            const validarNombre = () => {
+                if (nombreInput.value.trim() === '') {
+                    mostrarError(errorNombre, 'El nombre es obligatorio.');
+                    return false;
+                } else if (nombreInput.value.trim().length < 3) {
+                    mostrarError(errorNombre, 'El nombre debe tener al menos 3 caracteres.');
+                    return false;
+                } else {
+                    ocultarError(errorNombre);
+                    return true;
+                }
+            };
+
+            // Validar campo de email
+            const validarEmail = () => {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular simple para email
+                if (emailInput.value.trim() === '') {
+                    mostrarError(errorEmail, 'El email es obligatorio.');
+                    return false;
+                } else if (!emailRegex.test(emailInput.value.trim())) {
+                    mostrarError(errorEmail, 'Introduce un email válido.');
+                    return false;
+                } else {
+                    ocultarError(errorEmail);
+                    return true;
+                }
+            };
+
+            // Validar campo de mensaje
+            const validarMensaje = () => {
+                if (mensajeInput.value.trim() === '') {
+                    mostrarError(errorMensaje, 'El mensaje es obligatorio.');
+                    return false;
+                } else if (mensajeInput.value.trim().length < 10) {
+                    mostrarError(errorMensaje, 'El mensaje debe tener al menos 10 caracteres.');
+                    return false;
+                } else {
+                    ocultarError(errorMensaje);
+                    return true;
+                }
+            };
+
+            // Event listeners para validación en tiempo real (mientras el usuario escribe o sale del campo)
+            nombreInput.addEventListener('blur', validarNombre); // Cuando el campo pierde el foco
+            emailInput.addEventListener('blur', validarEmail);
+            mensajeInput.addEventListener('blur', validarMensaje);
+
+            // Event listener para el envío del formulario
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Evitar el envío predeterminado del formulario
+
+                // Ejecutar todas las validaciones
+                const esNombreValido = validarNombre();
+                const esEmailValido = validarEmail();
+                const esMensajeValido = validarMensaje();
+
+                // Si todos los campos son válidos, se puede proceder con el envío
+                if (esNombreValido && esEmailValido && esMensajeValido) {
+                    // Aquí iría la lógica para enviar los datos del formulario
+                    console.log('Formulario válido. Enviando datos...');
+                    // Puedes usar fetch() para enviar los datos al servidor.
+                    // Por ejemplo:
+                    // const formData = new FormData(contactForm);
+                    // fetch('/api/contacto', {
+                    //     method: 'POST',
+                    //     body: formData
+                    // })
+                    // .then(response => response.json())
+                    // .then(data => {
+                    //     console.log('Respuesta del servidor:', data);
+                    //     alert('Mensaje enviado con éxito!');
+                    //     contactForm.reset(); // Limpiar el formulario
+                    // })
+                    // .catch(error => {
+                    //     console.error('Error al enviar el formulario:', error);
+                    //     alert('Hubo un error al enviar el mensaje.');
+                    // });
+
+                    alert('¡Formulario enviado con éxito! (En una aplicación real, los datos se enviarían al servidor)');
+                    contactForm.reset(); // Limpiar el formulario después del "envío" simulado
+                } else {
+                    alert('Por favor, corrige los errores del formulario.');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">Mi Portafolio</a>
+        <button class="hamburger-menu" aria-label="Abrir menú de navegación">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Botón que abre el modal de proyecto -->
+    <button class="open-modal-btn" data-modal-target="projectModal1">Ver Detalles</button>
+
+    <!-- Botón que abre el modal de contacto -->
+    <button class="open-modal-btn" data-modal-target="contactModal" style="margin-left: 10px; background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); border: none; padding: 12px 24px; color: white; font-weight: 600; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(255, 107, 53, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(255, 107, 53, 0.4)'">Contactar</button>
+
+    <!-- Estructura del Modal de Proyecto -->
+    <div id="projectModal1" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="close-modal-btn" aria-label="Cerrar ventana modal">&times;</button>
+            <h3>Detalles del Proyecto 1</h3>
+            <p>Aquí va una descripción extendida del proyecto, tecnologías usadas, desafíos y soluciones.</p>
+            <img src="img/project1-detail.jpg" alt="Captura de pantalla detallada del Proyecto 1">
+            <a href="https://ejemplo.com/proyecto1" target="_blank" rel="noopener noreferrer">Ver Proyecto en Vivo</a>
+        </div>
+    </div>
+
+    <!-- Modal de Contacto con Formulario -->
+    <div id="contactModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" style="max-width: 550px; background: transparent; box-shadow: none; padding: 0;">
+            <button class="close-modal-btn" aria-label="Cerrar ventana modal" style="color: white; font-size: 35px; right: 5px; top: 5px; z-index: 10;">&times;</button>
+            <form id="contactForm">
+                <h2 style="text-align: center; color: white; margin-bottom: 30px; font-size: 1.8em; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);">Contáctanos</h2>
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+                    <span id="errorNombre" class="error-message"></span>
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                    <span id="errorEmail" class="error-message"></span>
+                </div>
+                <div>
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                    <span id="errorMensaje" class="error-message"></span>
+                </div>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-track-container">
+            <ul class="carousel-track">
+                <li class="carousel-slide">
+                    <img src="../../modulo3_css/descarga.jpg" alt="Vista del Proyecto 1, slide 1">
+                    <div class="slide-caption">Vista principal del dashboard</div>
+                </li>
+                <li class="carousel-slide">
+                    <img src="../../modulo3_css/descarga.jpg" alt="Vista del Proyecto 1, slide 2">
+                    <div class="slide-caption">Análisis de datos en tiempo real</div>
+                </li>
+                <li class="carousel-slide">
+                    <img src="../../modulo3_css/descarga.jpg" alt="Vista del Proyecto 1, slide 3">
+                    <div class="slide-caption">Interfaz de usuario personalizada</div>
+                </li>
+            </ul>
+        </div>
+
+        <button class="carousel-button prev" aria-label="Imagen anterior">&#10094;</button>
+        <button class="carousel-button next" aria-label="Imagen siguiente">&#10095;</button>
+
+        <div class="carousel-nav">
+            <!-- Los indicadores de puntos se generarán con JavaScript -->
+        </div>
+    </div>
+
+</body>
+
+</html>

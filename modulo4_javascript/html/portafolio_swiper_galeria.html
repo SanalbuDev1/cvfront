@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>María García | Diseñadora UX/UI</title>
+    
+    <!-- Swiper.js CSS desde CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===================================
+           RESET Y VARIABLES CSS
+        =================================== */
+        :root {
+            --color-primary: #6366f1;
+            --color-primary-dark: #4f46e5;
+            --color-secondary: #ec4899;
+            --color-bg: #0f0f1a;
+            --color-bg-light: #1a1a2e;
+            --color-bg-card: #252542;
+            --color-text: #e2e8f0;
+            --color-text-muted: #94a3b8;
+            --color-accent: #22d3ee;
+            --font-main: 'Inter', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        /* ===================================
+           NAVEGACIÓN
+        =================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            background: rgba(15, 15, 26, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        /* ===================================
+           SECCIÓN HERO
+        =================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: 
+                radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--color-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--color-bg-card);
+            color: var(--color-text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===================================
+           SECCIÓN DE PROYECTOS (SWIPER)
+        =================================== */
+        .projects {
+            padding: 6rem 2rem;
+            background: var(--color-bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--color-text-muted);
+        }
+
+        /* Contenedor principal de Swiper */
+        .projects-swiper {
+            width: 100%;
+            padding: 2rem 0 4rem;
+        }
+
+        /* Cada slide del carrusel */
+        .swiper-slide {
+            background: var(--color-bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .swiper-slide:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-card {
+            height: 100%;
+        }
+
+        .project-image {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .swiper-slide:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 15, 26, 0.9), transparent);
+            opacity: 0;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .swiper-slide:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--color-accent);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-content p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            gap: 0.75rem;
+        }
+
+        /* Personalización de Swiper Navigation */
+        .swiper-button-next,
+        .swiper-button-prev {
+            width: 50px !important;
+            height: 50px !important;
+            background: var(--color-bg-card);
+            border-radius: 50%;
+            color: var(--color-text) !important;
+            transition: var(--transition);
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: var(--color-primary);
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 1rem !important;
+            font-weight: bold;
+        }
+
+        /* Personalización de Swiper Pagination */
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: var(--color-bg-card);
+            opacity: 1;
+            transition: var(--transition);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--color-primary);
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        /* ===================================
+           SECCIÓN EXPLICACIÓN DE LA LIBRERÍA
+        =================================== */
+        .library-explanation {
+            padding: 6rem 2rem;
+            background: var(--color-bg);
+        }
+
+        .explanation-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .explanation-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .explanation-content h2 span {
+            color: var(--color-primary);
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .benefit-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--color-bg-light);
+            border-radius: 10px;
+        }
+
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .benefit-text strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .benefit-text span {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .code-preview {
+            background: #1e1e2e;
+            border-radius: 15px;
+            padding: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .code-preview pre {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .code-preview .comment { color: #6a9955; }
+        .code-preview .keyword { color: #c586c0; }
+        .code-preview .string { color: #ce9178; }
+        .code-preview .property { color: #9cdcfe; }
+        .code-preview .number { color: #b5cea8; }
+        .code-preview .function { color: #dcdcaa; }
+
+        /* ===================================
+           FOOTER
+        =================================== */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--color-bg-light);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: var(--color-bg-card);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--color-primary);
+            transform: translateY(-3px);
+        }
+
+        footer p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ===================================
+           RESPONSIVE DESIGN
+        =================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .explanation-container {
+                grid-template-columns: 1fr;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===================================
+         NAVEGACIÓN
+    =================================== -->
+    <nav class="navbar">
+        <div class="logo">MG.</div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#proyectos">Proyectos</a></li>
+            <li><a href="#sobre-swiper">Sobre Swiper</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- ===================================
+         HERO SECTION
+    =================================== -->
+    <header class="hero" id="inicio">
+        <div class="hero-content">
+            <span class="hero-badge">✨ Disponible para proyectos freelance</span>
+            <h1>Hola, soy <span>María García</span></h1>
+            <p>Diseñadora UX/UI especializada en crear experiencias digitales memorables que conectan marcas con usuarios a través de interfaces intuitivas y estéticamente impactantes.</p>
+            <div class="hero-buttons">
+                <a href="#proyectos" class="btn btn-primary">
+                    Ver Proyectos →
+                </a>
+                <a href="#contacto" class="btn btn-secondary">
+                    Contactar
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================================
+         SECCIÓN DE PROYECTOS CON SWIPER.JS
+    =================================== -->
+    <section class="projects" id="proyectos">
+        <div class="section-header">
+            <h2>Proyectos Destacados</h2>
+            <p>Una selección de mis trabajos más recientes en diseño de interfaces y experiencia de usuario.</p>
+        </div>
+
+        <!-- Swiper Container -->
+        <div class="swiper projects-swiper">
+            <!-- Wrapper para los slides -->
+            <div class="swiper-wrapper">
+                
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" 
+                                 alt="App de Finanzas Personales"
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-tags">
+                                    <span class="project-tag">Mobile App</span>
+                                    <span class="project-tag">Fintech</span>
+                                    <span class="project-tag">Figma</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>WalletFlow</h3>
+                            <p>Aplicación de finanzas personales con dashboard intuitivo y visualización de gastos en tiempo real.</p>
+                            <a href="#" class="project-link">Ver caso de estudio →</a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" 
+                                 alt="Dashboard Analytics"
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-tags">
+                                    <span class="project-tag">Dashboard</span>
+                                    <span class="project-tag">SaaS</span>
+                                    <span class="project-tag">Data Viz</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>DataPulse Analytics</h3>
+                            <p>Plataforma de análisis de datos empresariales con gráficos interactivos y reportes automatizados.</p>
+                            <a href="#" class="project-link">Ver caso de estudio →</a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&h=400&fit=crop" 
+                                 alt="E-commerce App"
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-tags">
+                                    <span class="project-tag">E-commerce</span>
+                                    <span class="project-tag">iOS/Android</span>
+                                    <span class="project-tag">UX Research</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>StyleHub Market</h3>
+                            <p>Rediseño completo de app de moda con enfoque en conversión y experiencia de compra fluida.</p>
+                            <a href="#" class="project-link">Ver caso de estudio →</a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="swiper-slide">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop" 
+                                 alt="Healthcare App"
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-tags">
+                                    <span class="project-tag">Healthcare</span>
+                                    <span class="project-tag">Accessibility</span>
+                                    <span class="project-tag">WCAG 2.1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>MediCare Portal</h3>
+                            <p>Portal de pacientes con diseño accesible y sistema de citas médicas simplificado.</p>
+                            <a href="#" class="project-link">Ver caso de estudio →</a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="swiper-slide">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop" 
+                                 alt="Learning Platform"
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-tags">
+                                    <span class="project-tag">EdTech</span>
+                                    <span class="project-tag">Gamification</span>
+                                    <span class="project-tag">Web App</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>LearnPath Academy</h3>
+                            <p>Plataforma de aprendizaje online con elementos de gamificación y seguimiento de progreso.</p>
+                            <a href="#" class="project-link">Ver caso de estudio →</a>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="swiper-slide">
+                    <article class="project-card">
+                        <div class="project-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" 
+                                 alt="Productivity App"
+                                 loading="lazy">
+                            <div class="project-overlay">
+                                <div class="project-tags">
+                                    <span class="project-tag">Productivity</span>
+                                    <span class="project-tag">B2B</span>
+                                    <span class="project-tag">Desktop</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <h3>TaskFlow Pro</h3>
+                            <p>Herramienta de gestión de proyectos con vista Kanban, calendario y colaboración en tiempo real.</p>
+                            <a href="#" class="project-link">Ver caso de estudio →</a>
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+
+            <!-- Paginación -->
+            <div class="swiper-pagination"></div>
+
+            <!-- Botones de navegación -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         EXPLICACIÓN DE SWIPER.JS
+    =================================== -->
+    <section class="library-explanation" id="sobre-swiper">
+        <div class="explanation-container">
+            <div class="explanation-content">
+                <h2>¿Por qué elegí <span>Swiper.js</span>?</h2>
+                <p>Swiper es una librería de carrusel moderna, táctil y altamente personalizable que se ha convertido en el estándar de la industria para crear sliders responsivos.</p>
+                
+                <ul class="benefit-list">
+                    <li>
+                        <div class="benefit-icon">📱</div>
+                        <div class="benefit-text">
+                            <strong>Mobile-First</strong>
+                            <span>Diseñada pensando primero en dispositivos móviles con soporte nativo para gestos táctiles.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="benefit-icon">⚡</div>
+                        <div class="benefit-text">
+                            <strong>Alto Rendimiento</strong>
+                            <span>Usa CSS3 transforms y transiciones para animaciones fluidas a 60fps.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="benefit-icon">🎨</div>
+                        <div class="benefit-text">
+                            <strong>Altamente Personalizable</strong>
+                            <span>100+ parámetros configurables y múltiples efectos de transición.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="benefit-icon">📦</div>
+                        <div class="benefit-text">
+                            <strong>Modular y Ligero</strong>
+                            <span>Solo ~25KB gzipped. Importa solo los módulos que necesitas.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="benefit-icon">♿</div>
+                        <div class="benefit-text">
+                            <strong>Accesible</strong>
+                            <span>Soporte integrado para navegación por teclado y lectores de pantalla.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="code-preview">
+                <pre><code><span class="comment">// Inicialización de Swiper.js</span>
+<span class="keyword">const</span> projectsSwiper = <span class="keyword">new</span> <span class="function">Swiper</span>(<span class="string">'.projects-swiper'</span>, {
+    <span class="comment">// Slides visibles por pantalla</span>
+    <span class="property">slidesPerView</span>: <span class="number">1</span>,
+    <span class="property">spaceBetween</span>: <span class="number">30</span>,
+    
+    <span class="comment">// Centrar el slide activo</span>
+    <span class="property">centeredSlides</span>: <span class="keyword">false</span>,
+    
+    <span class="comment">// Loop infinito</span>
+    <span class="property">loop</span>: <span class="keyword">true</span>,
+    
+    <span class="comment">// Autoplay con pausa en hover</span>
+    <span class="property">autoplay</span>: {
+        <span class="property">delay</span>: <span class="number">4000</span>,
+        <span class="property">disableOnInteraction</span>: <span class="keyword">false</span>,
+        <span class="property">pauseOnMouseEnter</span>: <span class="keyword">true</span>,
+    },
+    
+    <span class="comment">// Navegación táctil</span>
+    <span class="property">grabCursor</span>: <span class="keyword">true</span>,
+    
+    <span class="comment">// Paginación interactiva</span>
+    <span class="property">pagination</span>: {
+        <span class="property">el</span>: <span class="string">'.swiper-pagination'</span>,
+        <span class="property">clickable</span>: <span class="keyword">true</span>,
+        <span class="property">dynamicBullets</span>: <span class="keyword">true</span>,
+    },
+    
+    <span class="comment">// Botones prev/next</span>
+    <span class="property">navigation</span>: {
+        <span class="property">nextEl</span>: <span class="string">'.swiper-button-next'</span>,
+        <span class="property">prevEl</span>: <span class="string">'.swiper-button-prev'</span>,
+    },
+    
+    <span class="comment">// Breakpoints responsivos</span>
+    <span class="property">breakpoints</span>: {
+        <span class="number">640</span>: { <span class="property">slidesPerView</span>: <span class="number">2</span> },
+        <span class="number">1024</span>: { <span class="property">slidesPerView</span>: <span class="number">3</span> },
+    }
+});</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         FOOTER
+    =================================== -->
+    <footer id="contacto">
+        <div class="social-links">
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Dribbble">🏀</a>
+            <a href="#" aria-label="Behance">Be</a>
+            <a href="#" aria-label="Twitter">𝕏</a>
+        </div>
+        <p>© 2026 María García • Diseñadora UX/UI • Hecho con 💜 y Swiper.js</p>
+    </footer>
+
+    <!-- ===================================
+         SWIPER.JS DESDE CDN
+    =================================== -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        // ===================================
+        // INICIALIZACIÓN DE SWIPER.JS
+        // ===================================
+        
+        /**
+         * Swiper.js - Configuración para galería de proyectos
+         * 
+         * Opciones principales utilizadas:
+         * - slidesPerView: Número de slides visibles
+         * - spaceBetween: Espacio entre slides (en px)
+         * - loop: Permite carrusel infinito
+         * - autoplay: Reproducción automática
+         * - pagination: Indicadores de página
+         * - navigation: Flechas prev/next
+         * - breakpoints: Configuración responsiva
+         * - grabCursor: Muestra cursor de arrastre
+         */
+        
+        const projectsSwiper = new Swiper('.projects-swiper', {
+            // Configuración base
+            slidesPerView: 1,
+            spaceBetween: 30,
+            centeredSlides: false,
+            
+            // Loop infinito para navegación continua
+            loop: true,
+            
+            // Autoplay - se detiene al interactuar
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            
+            // Efecto de transición suave
+            speed: 600,
+            effect: 'slide', // Otras opciones: 'fade', 'cube', 'coverflow', 'flip'
+            
+            // Cursor de arrastre para indicar interactividad
+            grabCursor: true,
+            
+            // Navegación por teclado
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
+            
+            // Paginación con bullets dinámicos
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+            },
+            
+            // Botones de navegación
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            
+            // Configuración responsiva (breakpoints)
+            breakpoints: {
+                // >= 640px
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                // >= 1024px
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+                // >= 1280px
+                1280: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                }
+            },
+            
+            // Accesibilidad
+            a11y: {
+                prevSlideMessage: 'Proyecto anterior',
+                nextSlideMessage: 'Siguiente proyecto',
+                firstSlideMessage: 'Este es el primer proyecto',
+                lastSlideMessage: 'Este es el último proyecto',
+                paginationBulletMessage: 'Ir al proyecto {{index}}',
+            },
+        });
+
+        // ===================================
+        // NAVEGACIÓN SUAVE AL HACER SCROLL
+        // ===================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ===================================
+        // EFECTO DE PARALLAX EN NAVBAR
+        // ===================================
+        let lastScroll = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Log informativo
+        console.log('🎠 Swiper.js inicializado correctamente');
+        console.log('📱 Configuración responsiva activa');
+        console.log('⌨️ Navegación por teclado habilitada');
+    </script>
+</body>
+</html>

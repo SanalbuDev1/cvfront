@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* Estiliza todos los enlaces que abren en una nueva pestaña */
+        a[target="_blank"] {
+            color: rgb(255, 0, 0);
+            text-decoration: underline;
+            /* Icono para indicar que se abre en una nueva ventana */
+            background: url('external-link-icon.svg') no-repeat right center / 1em;
+            padding-right: 1.2em;
+            /* Espacio para el icono */
+        }
+
+        /* Estilos generales para botones con data-tipo */
+        button[data-tipo] {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
+
+        /* Estilo para el botón primario */
+        button[data-tipo="primario"] {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Estilo para el botón secundario */
+        button[data-tipo="secundario"] {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        /* Estilos para enlaces a videos de YouTube */
+        a[href*="youtube.com"] {
+            color: red;
+            /* Podrías añadir un icono de YouTube */
+        }
+
+        /* Estilos para enlaces a PDFs */
+        a[href$=".pdf"] {
+            color: #c0392b;
+            /* Rojo más oscuro */
+            font-weight: bold;
+            /* Podrías añadir un icono de PDF */
+        }
+
+        /* Estilos para enlaces a Behance */
+        a[href*="behance.net"] {
+            color: #0030ff;
+            /* Azul de Behance */
+            /* Podrías añadir un icono de Behance */
+        }
+
+        .servicios-lista li {
+            padding: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        /* El primer servicio tiene un borde superior más grueso */
+        .servicios-lista li:first-child {
+            border-top: 2px solid #007bff;
+            padding-top: 12px;
+        }
+
+        /* El último servicio no tiene borde inferior */
+        .servicios-lista li:last-child {
+            border-bottom: none;
+            padding-bottom: 12px;
+        }
+
+        /* Cada segundo servicio tiene un fondo ligeramente diferente para contraste */
+        .servicios-lista li:nth-child(odd) {
+            background-color: #acd3f5;
+            /* Un azul muy claro */
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* Añade un asterisco rojo a las etiquetas de campos requeridos */
+        .contact-form input[required]+label::after {
+            /* + selecciona el hermano adyacente */
+            content: " *";
+            color: red;
+        }
+
+        /* Nota: Esta regla asume que el input está antes de su label, lo cual es menos común pero posible.
+   Si el label está antes del input, el selector sería más complejo o requeriría un envoltorio.
+   Una alternativa más robusta si el label está primero:
+*/
+        .contact-form label[for="nombre"]::after,
+        .contact-form label[for="email"]::after {
+            content: " *";
+            color: red;
+        }
+
+        /* O, si prefieres usar un elemento visual en lugar de texto: */
+        .contact-form input[required]:invalid {
+            border-color: red;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+
+        .contact-form input[required]:valid {
+            border-color: green;
+            box-shadow: 0 0 5px rgba(0, 128, 0, 0.3);
+        }
+
+        /* La primera descripción después del título del proyecto */
+        .project-item h3+p {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Estiliza todos los párrafos que son hermanos de un h3, no solo el adyacente */
+        .project-item h3~p {
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        /* Estiliza solo los elementos que son hijos directos de .project-item */
+        .project-item>img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .main-nav a {
+            display: block;
+            padding: 10px 15px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        /* Estiliza todos los enlaces que NO son el elemento activo */
+        .main-nav a:not(.active) {
+            border-bottom: 2px solid transparent;
+            /* Para evitar saltos al hacer hover */
+        }
+
+        /* Estilos de hover para enlaces no activos */
+        .main-nav a:not(.active):hover {
+            background-color: #f0f0f0;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            transition: all 0.5s ease;
+        }
+
+        /* El elemento activo tiene un estilo diferente */
+        .main-nav a.active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            pointer-events: none;
+            /* Deshabilita el clic en el enlace activo */
+        }
+    </style>
+
+</head>
+
+<body>
+    <a href="https://ejemplo.com" target="_blank">Visita mi blog</a>
+    <a href="/proyectos/proyecto1">Ver Proyecto 1</a>
+
+    <button data-tipo="primario">Guardar Cambios</button>
+    <button data-tipo="secundario">Cancelar</button>
+    <button data-tipo="peligro">Eliminar Cuenta</button>
+
+    <p>Mi último proyecto de <a href="https://www.youtube.com/watch?v=videoID">diseño UI (Video)</a></p>
+    <p>Descarga mi <a href="/cv.pdf">currículum (PDF)</a></p>
+    <p>Explora mi trabajo en <a href="https://www.behance.net/miperfil">Behance</a></p>
+
+    <ul class="servicios-lista">
+        <li>Diseño UX/UI</li>
+        <li>Desarrollo Front-end</li>
+        <li>Optimización SEO</li>
+        <li>Consultoría Digital</li>
+        <li>Estrategia de Contenido</li>
+    </ul>
+
+    <form class="contact-form">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje"></textarea>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <div class="project-item">
+        <h3>Diseño de App Móvil</h3>
+        <p>Una descripción concisa del proyecto...</p>
+        <img src="app-mockup.jpg" alt="Mockup de la app">
+        <p>Detalles adicionales sobre las tecnologías utilizadas.</p>
+    </div>
+    <div class="project-item">
+        <h3>Sitio Web Corporativo</h3>
+        <p>Un sitio web responsivo para una startup...</p>
+        <p>Más información sobre el proceso de diseño.</p>
+    </div>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/" class="active">Inicio</a></li>
+            <li><a href="/proyectos">Proyectos</a></li>
+            <li><a href="/sobre-mi">Sobre Mí</a></li>
+            <li><a href="/contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</body>
+
+</html>

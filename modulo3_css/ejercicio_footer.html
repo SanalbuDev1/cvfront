@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .site-footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            /* 2. Alinea las secciones del pie de página en el centro horizontalmente */
+            background-color: #333;
+            /* Color de fondo para visualización */
+            gap: 20px;
+            /* Espacio opcional entre las secciones del pie de página */
+            padding: 20px;
+            /* Añade un poco de padding al footer */
+            color: white;
+            /* Color de texto para visualización */
+
+
+
+        }
+
+        .site-footer .footer-section {
+            flex: 1 1 30%;
+            background-color: #1c2422;
+            /* Color de fondo para visualización */
+            max-width: 350px;
+            /* Limita el ancho máximo para que no se estiren demasiado en pantallas muy grandes */
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            /* Centra el contenido dentro de cada sección */
+        }
+
+        /* 4. En pantallas pequeñas (max-width: 768px), cada .footer-section ocupa el 100% del ancho */
+        @media (max-width: 768px) {
+            .site-footer {
+                flex-direction: column;
+            }
+
+            .footer-section {
+                flex-basis: 100%;
+                /* Ocupa el 100% del ancho disponible */
+                max-width: 100%;
+                /* Asegura que no exceda el 100% */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    
+
+    <footer class="site-footer">
+        <div class="footer-section">
+            <h4>Navegación Rápida</h4>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Proyectos</a></li>
+                <li><a href="#">Servicios</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Redes Sociales</h4>
+            <ul>
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p>Email: info@ejemplo.com</p>
+            <p>Teléfono: +123 456 7890</p>
+        </div>
+    </footer>
+</body>
+
+</html>

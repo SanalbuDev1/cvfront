@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .portafolio-layout {
+            display: grid;
+            grid-template-columns: 1fr 5fr;
+            /* Dos columnas: una estrecha y una ancha */
+            grid-template-rows: auto 1fr auto;
+            /* Tres filas: cabecera, contenido, pie de página */
+            border: 2px solid #ff0000;
+            /* Borde general del layout */
+            min-height: 100vh;
+            /* Para visualizar mejor el espacio */
+        }
+
+        .header {
+            /* Hace que el header ocupe desde la columna 1 hasta la 4 (toda la anchura) */
+            grid-column: 1 / 4;
+
+            /* Coloca el header en la primera fila del grid */
+            grid-row: 1;
+
+            /* Color de fondo rosa claro */
+            background-color: #ff7474;
+
+            /* Espaciado interno de 20px en todos los lados */
+            padding: 20px;
+
+            /* Línea gris en la parte inferior del header */
+            border-bottom: 1px solid #ccc;
+
+            /* Centra el texto horizontalmente */
+            text-align: center;
+        }
+
+        .sidebar {
+            grid-column: 1;
+            grid-row: 2;
+            background-color: #80ff00;
+            padding: 15px;
+            border-right: 1px solid #000000;
+        }
+
+        .contenido-principal {
+            /* Coloca el contenido en la columna 2 (solo hay 2 columnas: 1fr y 10fr) */
+            grid-column: 2;
+
+            /* Coloca el contenido en la fila 2 (debajo del header) */
+            grid-row: 2;
+
+            /* Color de fondo amarillo */
+            background-color: #fcdb6e;
+
+            /* Espaciado interno */
+            padding: 20px;
+        }
+
+        .contenido-principal2 {
+            /* Coloca el contenido en la columna 2 (solo hay 2 columnas: 1fr y 10fr) */
+            grid-column: 3;
+
+            /* Coloca el contenido en la fila 2 (debajo del header) */
+            grid-row: 2;
+
+            /* Color de fondo amarillo */
+            background-color: #ffc400;
+
+            /* Espaciado interno */
+            padding: 20px;
+        }
+
+        .footer {
+            grid-column: 1 / 3;
+            grid-row: 3;
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-top: 1px solid #ff0000;
+            text-align: center;
+        }
+
+        .about-me {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            /* Columna izquierda para imagen, columna derecha para texto */
+            grid-template-rows: auto auto;
+            /* Fila para texto/enlaces, otra para imagen (si fuera necesario ajustar) */
+            gap: 30px;
+            /* Espacio entre los elementos */
+            padding: 40px;
+            border: 2px solid #0000ff;
+            align-items: center;
+            /* Alinea verticalmente los elementos al centro */
+        }
+
+        .profile-pic {
+            grid-column: 1;
+            /* La imagen ocupa la primera columna */
+            grid-row: 1 / 3;
+            /* La imagen ocupa ambas filas si fuera necesario para un diseño alto */
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #8e8ef9;
+        }
+
+        .bio-text {
+            grid-column: 2;
+            /* El texto ocupa la segunda columna */
+            grid-row: 1;
+
+            border: 2px solid #f988f9;
+        }
+
+        .social-links {
+            grid-column: 2;
+            /* Los enlaces ocupan la segunda columna */
+            grid-row: 2;
+            display: flex;
+            /* Usamos Flexbox dentro de este elemento Grid para los enlaces */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Para dispositivos móviles, queremos que la imagen, texto y enlaces estén en una sola columna */
+        @media (max-width: 768px) {
+            .about-me {
+                grid-template-columns: 1fr;
+                /* Una sola columna para todos los elementos */
+                grid-template-rows: auto auto auto;
+                /* Tres filas */
+            }
+
+            .profile-pic,
+            .bio-text,
+            .social-links {
+                grid-column: 1;
+                /* Todos ocupan la primera columna */
+                grid-row: auto;
+                /* Las filas se autoajustan */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="portafolio-layout">
+        <header class="header">1</header>
+        <aside class="sidebar"></aside>
+        <main class="contenido-principal">Contenido principal</main>
+        <main class="contenido-principal2">Contenido principal 2 </main>
+        <footer class="footer"></footer>
+    </div>
+
+    <section class="about-me">
+        <img src="tu-imagen.jpg" alt="Tu perfil" class="profile-pic">
+        <div class="bio-text">
+            <h2>Acerca de Mí</h2>
+            <p>Soy un desarrollador web con experiencia en front-end y back-end...</p>
+        </div>
+        <div class="social-links">
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,233 @@
+<svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo con gradiente -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d2d2d;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="yellowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFC700;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="azureGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0078D4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#50E6FF;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#FFEB3B;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#FFD700;stop-opacity:0.3" />
+    </linearGradient>
+
+    <!-- Filtro de brillo -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="blueGlow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Fondo -->
+  <rect width="600" height="600" fill="url(#bgGradient)"/>
+
+  <!-- Círculos decorativos de fondo -->
+  <circle cx="100" cy="100" r="150" fill="#FFD700" opacity="0.05"/>
+  <circle cx="500" cy="500" r="180" fill="#0078D4" opacity="0.04"/>
+  <circle cx="450" cy="150" r="120" fill="#FFC700" opacity="0.04"/>
+
+  <!-- Grid de puntos -->
+  <g opacity="0.1">
+    <circle cx="150" cy="150" r="2" fill="#FFD700"/>
+    <circle cx="150" cy="200" r="2" fill="#FFD700"/>
+    <circle cx="150" cy="250" r="2" fill="#FFD700"/>
+    <circle cx="150" cy="300" r="2" fill="#0078D4"/>
+    <circle cx="200" cy="150" r="2" fill="#FFD700"/>
+    <circle cx="200" cy="200" r="2" fill="#FFD700"/>
+    <circle cx="200" cy="250" r="2" fill="#0078D4"/>
+    <circle cx="200" cy="300" r="2" fill="#0078D4"/>
+    <circle cx="250" cy="150" r="2" fill="#FFD700"/>
+    <circle cx="250" cy="200" r="2" fill="#0078D4"/>
+    <circle cx="250" cy="250" r="2" fill="#0078D4"/>
+    <circle cx="250" cy="300" r="2" fill="#0078D4"/>
+    <circle cx="400" cy="300" r="2" fill="#FFD700"/>
+    <circle cx="400" cy="350" r="2" fill="#FFD700"/>
+    <circle cx="400" cy="400" r="2" fill="#0078D4"/>
+    <circle cx="450" cy="300" r="2" fill="#FFD700"/>
+    <circle cx="450" cy="350" r="2" fill="#0078D4"/>
+    <circle cx="450" cy="400" r="2" fill="#0078D4"/>
+  </g>
+
+  <!-- Servidor central con Java -->
+  <g transform="translate(200, 130)">
+    <!-- Torre del servidor -->
+    <rect x="0" y="0" width="200" height="300" rx="8" fill="#2d2d2d" stroke="url(#yellowGradient)" stroke-width="3"/>
+
+    <!-- Paneles del servidor -->
+    <rect x="15" y="20" width="170" height="55" rx="4" fill="#1a1a1a" stroke="#FFD700" stroke-width="2" opacity="0.8"/>
+    <rect x="15" y="90" width="170" height="55" rx="4" fill="#1a1a1a" stroke="#FFD700" stroke-width="2" opacity="0.8"/>
+    <rect x="15" y="160" width="170" height="55" rx="4" fill="#1a1a1a" stroke="#FFD700" stroke-width="2" opacity="0.8"/>
+    <rect x="15" y="230" width="170" height="55" rx="4" fill="#1a1a1a" stroke="#FFD700" stroke-width="2" opacity="0.8"/>
+
+    <!-- Logo Java en el primer panel -->
+    <text x="100" y="52" text-anchor="middle" dominant-baseline="middle" fill="#f89820" font-size="24" font-weight="bold" font-family="Arial">JAVA</text>
+
+    <!-- LEDs indicadores Spring Boot -->
+    <circle cx="30" cy="115" r="4" fill="#10B981" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="50" cy="115" r="4" fill="#10B981" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2.3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="70" cy="115" r="4" fill="#6db33f" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <text x="100" y="122" text-anchor="middle" fill="#6db33f" font-size="14" font-weight="600" font-family="Arial">Spring Boot</text>
+
+    <!-- Microservicios -->
+    <text x="100" y="192" text-anchor="middle" fill="#FFD700" font-size="13" font-weight="600" font-family="Arial">Microservices</text>
+    <rect x="30" y="200" width="35" height="8" rx="2" fill="#FFD700" opacity="0.6"/>
+    <rect x="75" y="200" width="50" height="8" rx="2" fill="#FFD700" opacity="0.6"/>
+    <rect x="135" y="200" width="40" height="8" rx="2" fill="#FFD700" opacity="0.6"/>
+
+    <!-- API REST -->
+    <text x="100" y="262" text-anchor="middle" fill="#FFD700" font-size="14" font-weight="600" font-family="Arial">REST API</text>
+    <circle cx="40" cy="270" r="3" fill="#10B981" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.3;1" dur="2.1s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="60" cy="270" r="3" fill="#10B981" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="140" cy="270" r="3" fill="#FFD700" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1.7s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Logo Azure (izquierda superior) -->
+  <g transform="translate(70, 120)">
+    <!-- Cubo Azure -->
+    <path d="M 0,20 L 25,0 L 50,20 L 50,50 L 25,70 L 0,50 Z" fill="none" stroke="url(#azureGradient)" stroke-width="3" opacity="0.9"/>
+    <path d="M 0,20 L 25,35 L 50,20" stroke="url(#azureGradient)" stroke-width="2" opacity="0.7"/>
+    <path d="M 25,35 L 25,70" stroke="url(#azureGradient)" stroke-width="2" opacity="0.7"/>
+
+    <text x="25" y="95" text-anchor="middle" fill="#0078D4" font-size="16" font-weight="bold" font-family="Arial">AZURE</text>
+    <text x="25" y="115" text-anchor="middle" fill="#50E6FF" font-size="11" font-family="Arial">Cloud</text>
+
+    <!-- Indicador activo -->
+    <circle cx="45" cy="10" r="4" fill="#10B981" filter="url(#blueGlow)">
+      <animate attributeName="opacity" values="1;0.4;1" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Base de datos SQL (derecha) -->
+  <g transform="translate(470, 200)">
+    <!-- Cilindros de BD apilados -->
+    <g>
+      <ellipse cx="0" cy="0" rx="35" ry="12" fill="#2d2d2d" stroke="url(#yellowGradient)" stroke-width="3"/>
+      <line x1="-35" y1="0" x2="-35" y2="25" stroke="url(#yellowGradient)" stroke-width="3"/>
+      <line x1="35" y1="0" x2="35" y2="25" stroke="url(#yellowGradient)" stroke-width="3"/>
+      <ellipse cx="0" cy="25" rx="35" ry="12" fill="#1a1a1a" stroke="url(#yellowGradient)" stroke-width="3"/>
+
+      <ellipse cx="0" cy="25" rx="35" ry="12" fill="#2d2d2d" stroke="url(#yellowGradient)" stroke-width="3"/>
+      <line x1="-35" y1="25" x2="-35" y2="50" stroke="url(#yellowGradient)" stroke-width="3"/>
+      <line x1="35" y1="25" x2="35" y2="50" stroke="url(#yellowGradient)" stroke-width="3"/>
+      <ellipse cx="0" cy="50" rx="35" ry="12" fill="#1a1a1a" stroke="url(#yellowGradient)" stroke-width="3"/>
+    </g>
+
+    <!-- Texto SQL -->
+    <text x="0" y="75" text-anchor="middle" fill="#FFD700" font-size="15" font-weight="bold" font-family="Arial">SQL Server</text>
+    <text x="0" y="93" text-anchor="middle" fill="#a0a0a0" font-size="11" font-family="Arial">PostgreSQL</text>
+
+    <!-- Indicador de actividad -->
+    <circle cx="-25" cy="10" r="3" fill="#10B981" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="25" cy="35" r="3" fill="#FFD700" filter="url(#glow)">
+      <animate attributeName="opacity" values="1;0.5;1" dur="2.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Contenedores Docker (parte inferior izquierda) -->
+  <g transform="translate(80, 390)">
+    <!-- Cajas de contenedor -->
+    <rect x="0" y="0" width="50" height="50" rx="4" fill="#2d2d2d" stroke="#0078D4" stroke-width="2" opacity="0.8"/>
+    <rect x="60" y="0" width="50" height="50" rx="4" fill="#2d2d2d" stroke="#0078D4" stroke-width="2" opacity="0.8"/>
+    <rect x="30" y="-25" width="50" height="50" rx="4" fill="#2d2d2d" stroke="#50E6FF" stroke-width="2" opacity="0.9"/>
+
+    <!-- Logo Docker simplificado -->
+    <circle cx="55" cy="0" r="3" fill="#0078D4"/>
+    <circle cx="65" cy="0" r="3" fill="#0078D4"/>
+    <circle cx="75" cy="0" r="3" fill="#0078D4"/>
+
+    <text x="55" y="75" text-anchor="middle" fill="#0078D4" font-size="14" font-weight="600" font-family="Arial">Docker</text>
+  </g>
+
+  <!-- Líneas de conexión animadas -->
+  <g opacity="0.6">
+    <!-- Azure al Servidor -->
+    <path d="M 120,180 Q 150,200 200,230" stroke="url(#azureGradient)" stroke-width="2" fill="none" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- Servidor a Base de datos -->
+    <line x1="400" y1="280" x2="435" y2="250" stroke="url(#yellowGradient)" stroke-width="2" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite"/>
+    </line>
+
+    <!-- Docker a Servidor -->
+    <path d="M 150,390 Q 180,350 200,340" stroke="#0078D4" stroke-width="2" fill="none" stroke-dasharray="5,5" opacity="0.7">
+      <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1.2s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Partículas de datos flotantes -->
+  <g opacity="0.5">
+    <circle cx="150" cy="200" r="3" fill="#FFD700">
+      <animate attributeName="cy" values="200;180;200" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="320" r="3" fill="#0078D4">
+      <animate attributeName="cy" values="320;300;320" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="450" r="3" fill="#FFC700">
+      <animate attributeName="cy" values="450;430;450" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="350" cy="180" r="3" fill="#50E6FF">
+      <animate attributeName="cy" values="180;160;180" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Stack tecnológico en la parte inferior -->
+  <g transform="translate(300, 500)" opacity="0.6">
+    <text x="0" y="0" text-anchor="middle" fill="#FFD700" font-size="15" font-family="monospace" font-weight="600">&lt;Stack</text>
+    <text x="-100" y="25" text-anchor="start" fill="#f89820" font-size="14" font-family="monospace">  Java</text>
+    <text x="-100" y="45" text-anchor="start" fill="#6db33f" font-size="14" font-family="monospace">  Spring</text>
+    <text x="20" y="25" text-anchor="start" fill="#0078D4" font-size="14" font-family="monospace">  Azure</text>
+    <text x="20" y="45" text-anchor="start" fill="#FFD700" font-size="14" font-family="monospace">  SQL</text>
+    <text x="0" y="70" text-anchor="middle" fill="#FFD700" font-size="15" font-family="monospace" font-weight="600">/&gt;</text>
+  </g>
+
+  <!-- Título principal -->
+  <g transform="translate(300, 80)">
+    <text x="0" y="0" text-anchor="middle" fill="url(#yellowGradient)" font-size="26" font-weight="bold" font-family="Arial">
+      BACKEND DEVELOPER
+    </text>
+    <text x="0" y="25" text-anchor="middle" fill="#0078D4" font-size="14" font-weight="500" font-family="Arial">
+      Java • Azure • SQL
+    </text>
+  </g>
+
+  <!-- Borde decorativo -->
+  <rect x="10" y="10" width="580" height="580" rx="20" fill="none" stroke="url(#accentGradient)" stroke-width="2" opacity="0.3"/>
+</svg>

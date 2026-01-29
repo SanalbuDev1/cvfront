@@ -1,0 +1,411 @@
+/*
+    ========================================
+    EJERCICIO 1: SECCIÓN DE CONTACTO
+    Enfoque Mobile-First con Flexbox
+    ========================================
+    
+    ESTRUCTURA DEL CSS:
+    1. Reset y estilos globales
+    2. Estilos base MOBILE-FIRST (por defecto)
+    3. Media queries para pantallas grandes
+*/
+
+/* ========================================
+   1. RESET Y ESTILOS GLOBALES
+   ======================================== */
+
+/* 
+    Box-sizing: border-box hace que padding y border 
+    se incluyan en el width/height total del elemento
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+/* ========================================
+   2. ESTILOS BASE - MOBILE FIRST
+   ========================================
+   Estos estilos se aplican por defecto 
+   (para móviles y pantallas pequeñas)
+   ======================================== */
+
+/* --- HEADER --- */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* --- MAIN CONTENT --- */
+main {
+    padding: 1.5rem 1rem;
+}
+
+/* 
+    CONTENEDOR PRINCIPAL
+    ====================
+    En móvil: display block (por defecto)
+    Los elementos se apilan verticalmente de forma natural
+*/
+.contacto-contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* En móvil no usamos flex, los divs se apilan naturalmente */
+    display: block;
+}
+
+/* 
+    WRAPPER DEL FORMULARIO
+    ======================
+    En móvil: ocupa todo el ancho disponible
+*/
+.formulario-wrapper {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* En móvil: 100% del ancho (comportamiento por defecto) */
+    margin-bottom: 1.5rem; /* Espacio antes del mapa */
+}
+
+.formulario-wrapper h2 {
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+/* 
+    ESTILOS DEL FORMULARIO
+    ======================
+    Diseñados para funcionar bien en pantallas móviles
+*/
+.formulario-contacto {
+    /* El formulario ya es naturalmente de una columna */
+}
+
+.form-grupo {
+    margin-bottom: 1.2rem;
+}
+
+.form-grupo label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* 
+    INPUTS Y TEXTAREA FLUIDOS
+    ==========================
+    width: 100% hace que se adapten al contenedor
+    padding en px para mantener consistencia
+*/
+.form-grupo input,
+.form-grupo textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+/* Estados de interacción */
+.form-grupo input:focus,
+.form-grupo textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.form-grupo textarea {
+    resize: vertical; /* Permite redimensionar solo verticalmente */
+    min-height: 100px;
+}
+
+/* 
+    BOTÓN DE ENVÍO
+    ==============
+    En móvil: ocupa todo el ancho para ser fácil de pulsar
+*/
+.btn-enviar {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-enviar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-enviar:active {
+    transform: translateY(0);
+}
+
+/* 
+    WRAPPER DEL MAPA
+    ================
+    En móvil: se muestra debajo del formulario
+*/
+.mapa-wrapper {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.mapa-wrapper h2 {
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+/* 
+    MAPA RESPONSIVE (IFRAME FLUIDO)
+    ================================
+    TÉCNICA: Padding-bottom trick
+    - El contenedor tiene position: relative
+    - El padding-bottom define el aspect ratio (16:9 = 56.25%)
+    - El iframe tiene position: absolute y ocupa todo el espacio
+    - Resultado: iframe fluido que mantiene proporción
+*/
+.mapa-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* Aspect ratio 16:9 (9/16 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: 1.5rem;
+}
+
+.mapa-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* 
+    INFORMACIÓN DE CONTACTO
+    =======================
+*/
+.info-contacto {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid #667eea;
+}
+
+.info-contacto h3 {
+    color: #667eea;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+}
+
+.info-contacto p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.info-contacto strong {
+    color: #555;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 2rem;
+}
+
+footer p {
+    font-size: 0.9rem;
+}
+
+
+/* ========================================
+   3. MEDIA QUERIES - PANTALLAS GRANDES
+   ========================================
+   min-width: 768px = tablets y desktop
+   Aquí aplicamos el layout de dos columnas
+   ======================================== */
+
+@media screen and (min-width: 768px) {
+    
+    /* 
+        HEADER - Texto más grande en desktop
+    */
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header p {
+        font-size: 1.2rem;
+    }
+
+    /* 
+        MAIN - Más padding en desktop
+    */
+    main {
+        padding: 2.5rem 2rem;
+    }
+
+    /* 
+        CONTENEDOR PRINCIPAL CON FLEXBOX
+        ================================
+        AQUÍ ES DONDE OCURRE LA MAGIA DEL RESPONSIVE
+        - Cambiamos de display: block a display: flex
+        - Los elementos hijos se colocan en fila (row)
+        - El gap crea espacio entre formulario y mapa
+    */
+    .contacto-contenedor {
+        display: flex;
+        flex-direction: row; /* Elementos en fila (lado a lado) */
+        gap: 2rem; /* Espacio entre formulario y mapa */
+        align-items: flex-start; /* Alineación superior */
+    }
+
+    /* 
+        FORMULARIO Y MAPA - 50% cada uno
+        =================================
+        flex: 1 hace que ambos ocupen el mismo espacio
+        (equivalente a flex: 1 1 0 -> grow, shrink, basis)
+    */
+    .formulario-wrapper,
+    .mapa-wrapper {
+        flex: 1; /* Ambos ocupan el mismo espacio (50% cada uno) */
+        margin-bottom: 0; /* Quitamos el margin-bottom ya que están lado a lado */
+    }
+
+    /* 
+        Alternativa más explícita (comentada):
+        Si quisieras diferentes anchos, podrías usar:
+    */
+    /*
+    .formulario-wrapper {
+        flex: 1.2; // 55% aprox
+    }
+    .mapa-wrapper {
+        flex: 1; // 45% aprox
+    }
+    */
+
+    /* 
+        BOTÓN - En desktop no necesita ocupar todo el ancho
+    */
+    .btn-enviar {
+        width: auto; /* Ancho automático basado en contenido */
+        padding: 1rem 3rem; /* Más padding horizontal */
+    }
+
+    /* 
+        MAPA - Ajuste de aspect ratio para desktop
+        En pantallas grandes, un 4:3 puede verse mejor
+    */
+    .mapa-responsive {
+        padding-bottom: 75%; /* Aspect ratio 4:3 (3/4 = 0.75) */
+    }
+
+}
+
+/* ========================================
+   4. MEDIA QUERY ADICIONAL - PANTALLAS MUY GRANDES
+   ======================================== */
+
+@media screen and (min-width: 1200px) {
+    
+    /* 
+        En pantallas muy grandes, limitamos el ancho máximo
+        y aumentamos los tamaños de fuente
+    */
+    header h1 {
+        font-size: 3rem;
+    }
+
+    .formulario-wrapper h2,
+    .mapa-wrapper h2 {
+        font-size: 1.8rem;
+    }
+
+    .form-grupo input,
+    .form-grupo textarea {
+        font-size: 1.05rem;
+    }
+
+    /* Más padding para aprovechar el espacio */
+    .formulario-wrapper,
+    .mapa-wrapper {
+        padding: 2rem;
+    }
+}
+
+
+/* ========================================
+   5. MEJORAS OPCIONALES
+   ======================================== */
+
+/* 
+    Animación suave al cargar la página
+*/
+.contacto-contenedor > * {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 
+    Validación de formulario con HTML5
+    (Los campos con :invalid mostrarán borde rojo)
+*/
+.form-grupo input:invalid:not(:focus):not(:placeholder-shown),
+.form-grupo textarea:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #e74c3c;
+}
+
+.form-grupo input:valid:not(:focus):not(:placeholder-shown),
+.form-grupo textarea:valid:not(:focus):not(:placeholder-shown) {
+    border-color: #27ae60;
+}

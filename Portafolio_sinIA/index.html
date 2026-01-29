@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Portafolio profesional de desarrollador backend especializado en crear APIs robustas y sistemas escalables">
+    <meta name="keywords" content="backend developer, API development, Node.js, Python, Django, PostgreSQL">
+    <meta name="author" content="[Tu Nombre]">
+
+    <title>Backend Developer | Portafolio Profesional</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <!-- ===================================
+         LOADER - Pantalla de carga (0.7s)
+    =================================== -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Cargando<span class="dots"></span></div>
+        </div>
+    </div>
+
+    <!-- ===================================
+         NAVEGACIÓN PRINCIPAL
+    =================================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <!-- Logo -->
+            <a href="#home" class="logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">DevBackend</span>
+                <span class="logo-bracket">/&gt;</span>
+            </a>
+
+            <!-- Menú de navegación -->
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Inicio</a></li>
+                <li><a href="#about" class="nav-link">Sobre Mí</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Proyectos</a></li>
+                <li><a href="#experience" class="nav-link">Experiencia</a></li>
+                <li><a href="#contact" class="nav-link">Contacto</a></li>
+            </ul>
+
+            <!-- Toggle de tema -->
+            <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+
+            <!-- Menú hamburguesa (móvil) -->
+            <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+ <!-- ===================================
+         HERO SECTION - Sección principal
+    =================================== -->
+    <section id="home" class="hero">
+        <!-- Efecto de partículas de fondo -->
+        <div class="particles" id="particles"></div>
+
+        <div class="container hero-container">
+            <div class="hero-content">
+                <!-- Saludo animado -->
+                <p class="hero-greeting">Hola, soy</p>
++
+                <!-- Nombre principal con efecto gradiente -->
+                <h1 class="hero-name">
+                    <span class="text-gradient">Santiago Alvarez</span>
+                </h1>
+
+                <!-- Título profesional con efecto typing -->
+                <div class="hero-title">
+                    <span class="bracket">&lt;</span>
+                    <span class="typing-text" id="typing-text"></span>
+                    <span class="cursor">|</span>
+                    <span class="bracket">/&gt;</span>
+                </div>
+
+                <!-- Descripción breve -->
+                <p class="hero-description">
+                    Especializado en construir APIs robustas, sistemas escalables y arquitecturas backend
+                    de alto rendimiento. Transformo ideas en soluciones tecnológicas eficientes.
+                </p>
+
+                <!-- Botones de acción -->
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Ver Proyectos
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Contactar
+                    </a>
+                </div>
+
+                <!-- Enlaces sociales -->
+                <div class="hero-social">
+                    <a href="https://www.linkedin.com/in/santiago-alvarez-buitrago-81886b17b/" target="_blank" aria-label="LinkedIn" class="social-link">
+                        <i class="fab fa-linkedin"></i>          
+                    </a>                          
+                </div>
+            </div>
+
+            <!-- Imagen/Ilustración del hero -->
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <img src="images/hero-backend.svg"
+                         alt="Santiago Alvarez - Backend Developer">
+                    <div class="hero-image-glow"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicador de scroll -->
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>

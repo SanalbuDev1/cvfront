@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Contenedor principal de la navegación */
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            /* Logo a la izquierda, enlaces a la derecha */
+            align-items: center;
+            /* Centra verticalmente todos los ítems */
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+        }
+
+        .nav-logo {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            /* Convierte los ítems de la lista en ítems flex */
+            list-style: none;
+            /* Quita los puntos de la lista */
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+            /* Espacio entre los ítems del menú */
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #555;
+            border-radius: 4px;
+        }
+
+        .menu-toggle {
+            display: none;
+            /* Por defecto oculto en escritorio */
+            background: none;
+            border: none;
+            color: #4CAF50;
+            font-size: 1.8em;
+            cursor: pointer;
+        }
+
+        /* Responsividad para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .main-nav {
+                flex-wrap: wrap;
+                /* Permite que los ítems se envuelvan */
+                justify-content: center;
+                /* Centra todos los ítems cuando se envuelven */
+            }
+
+            .nav-logo,
+            .menu-toggle {
+                width: 100%;
+                /* Ocupan todo el ancho en móviles */
+                text-align: center;
+                margin-bottom: 10px;
+                order: -1;
+                /* Mueve el logo y el botón al principio */
+            }
+
+            .nav-links {
+                flex-direction: column;
+                /* Los enlaces se apilan verticalmente */
+                width: 100%;
+                /* Ocupan todo el ancho disponible */
+                display: none;
+                /* Oculta los enlaces por defecto en móviles */
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+                /* Muestra los enlaces cuando el menú está activo (con JS) */
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                /* Muestra el botón de menú en móviles */
+            }
+        }
+
+        .portfolio-section {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+
+        .column-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            /* Permite que las tarjetas se envuelvan */
+            gap: 20px;
+            /* Espacio entre las tarjetas */
+            justify-content: center;
+            /* Centra las tarjetas cuando no llenan una fila completa */
+        }
+
+        .project-card {
+            flex: 1 1 300px;
+            /* Crece, encoge, base de 300px */
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            min-width: 280px;
+            /* Ancho mínimo para evitar que se hagan demasiado pequeñas */
+        }
+
+        .project-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+        /* Responsividad para pantallas muy pequeñas */
+        @media (max-width: 600px) {
+            .project-card {
+                flex-basis: 100%;
+                /* En pantallas pequeñas, cada tarjeta ocupa todo el ancho */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="main-nav">
+        <a href="#" class="nav-logo">Mi Portafolio</a>
+        <ul class="nav-links">
+            <li><a href="#about">Acerca de</a></li>
+            <li><a href="#projects">Proyectos</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+        <button class="menu-toggle">☰</button>
+    </nav>
+
+    <section class="portfolio-section">
+        <div class="column-wrapper">
+            <div class="project-card">
+                <h3>Proyecto 1</h3>
+                <p>Descripción del proyecto uno...</p>
+                <img src="https://via.placeholder.com/300x200" alt="Proyecto 1">
+            </div>
+            <div class="project-card">
+                <h3>Proyecto 2</h3>
+                <p>Descripción del proyecto dos...</p>
+                <img src="https://via.placeholder.com/300x200" alt="Proyecto 2">
+            </div>
+            <div class="project-card">
+                <h3>Proyecto 3</h3>
+                <p>Descripción del proyecto tres...</p>
+                <img src="https://via.placeholder.com/300x200" alt="Proyecto 3">
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>

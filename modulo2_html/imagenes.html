@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Imagen desde una ruta relativa en la carpeta 'assets/img' -->
+    <img src="descarga.jpg" alt="Fotografía de perfil de Juan Pérez, desarrollador web" width="200" height="200">
+
+    <!-- Imagen desde una URL absoluta (externa) -->
+    <img src="https://via.placeholder.com/400x300.png?text=Placeholder+Image" alt="Imagen de marcador de posición"
+        width="400" height="300">
+
+    <img src="descarga.jpg" alt="Descripción de un proyecto de diseño web" srcset="assets/img/proyecto-small.jpg 480w, 
+          assets/img/proyecto-medium.jpg 800w, 
+          assets/img/proyecto-large.jpg 1200w" sizes="(max-width: 600px) 480px, 
+         (max-width: 900px) 800px, 
+         1200px">
+
+    <picture>
+        <source media="(max-width: 799px)" srcset="descarga.jpg">
+        <source media="(min-width: 800px)" srcset="descarga.jpg">
+        <img src="descarga.jpg"
+            alt="Imagen principal del héroe del portafolio, mostrando un diseño responsivo">
+    </picture>
+</body>
+
+</html>

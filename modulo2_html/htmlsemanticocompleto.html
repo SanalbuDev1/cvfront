@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio Profesional - Juan Pérez</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1><a href="index.html">Juan Pérez</a></h1>
+        </div>
+        <button class="menu-toggle" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre-mi">Sobre Mí</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h2>Hola, soy Juan Pérez</h2>
+                <h3>Desarrollador Web Front-end</h3>
+                <p>Con pasión por crear experiencias web increíbles y responsivas, transformando ideas en realidad digital.</p>
+                <a href="#proyectos" class="btn">Explora Mis Proyectos</a>
+            </div>
+        </section>
+
+        <section id="sobre-mi" class="about">
+            <h2>Sobre Mí</h2>
+            <p>Soy un desarrollador front-end con más de 5 años de experiencia, especializado en la creación de interfaces de usuario modernas y optimizadas. Mi enfoque es construir sitios web accesibles y de alto rendimiento utilizando las últimas tecnologías.</p>
+            <h3>Mis Habilidades Clave:</h3>
+            <ul>
+                <li>HTML5 Semántico y Accesible</li>
+                <li>CSS3 (Flexbox, Grid, Animaciones)</li>
+                <li>JavaScript (ES6+, DOM Manipulation)</li>
+                <li>Frameworks: React.js, Next.js</li>
+                <li>Control de Versiones: Git & GitHub</li>
+                <li>Diseño Responsivo y Mobile-First</li>
+            </ul>
+            <p>Fuera del código, me encanta aprender sobre nuevas tecnologías y contribuir a proyectos de código abierto.</p>
+        </section>
+
+        <section id="proyectos" class="projects">
+            <h2>Mis Proyectos</h2>
+            <div class="project-grid">
+                <article class="project-item">
+                    <img src="https://via.placeholder.com/400x250?text=Proyecto+1" alt="Miniatura del Proyecto de E-commerce">
+                    <h3>Plataforma de E-commerce</h3>
+                    <p>Desarrollo front-end completo para una tienda en línea, con carrito de compras dinámico y filtros de productos. Utiliza React y CSS Grid.</p>
+                    <a href="enlace-al-proyecto1.html" class="btn">Ver Detalles del Proyecto</a>
+                </article>
+                <article class="project-item">
+                    <img src="https://via.placeholder.com/400x250?text=Proyecto+2" alt="Miniatura de la Aplicación de Gestión de Tareas">
+                    <h3>Aplicación de Gestión de Tareas</h3>
+                    <p>Una aplicación web para organizar tareas diarias, con funcionalidades de añadir, editar y eliminar. Implementado con Vanilla JavaScript y almacenamiento local.</p>
+                    <a href="enlace-al-proyecto2.html" class="btn">Ver Detalles del Proyecto</a>
+                </article>
+                <article class="project-item">
+                    <img src="https://via.placeholder.com/400x250?text=Proyecto+3" alt="Miniatura del Rediseño de Blog Personal">
+                    <h3>Rediseño de Blog Personal</h3>
+                    <p>Reestructuración y rediseño completo de un blog, enfocado en mejorar la experiencia de usuario y la optimización SEO. Uso de HTML semántico y Flexbox.</p>
+                    <a href="enlace-al-proyecto3.html" class="btn">Ver Detalles del Proyecto</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact">
+            <h2>Contacto</h2>
+            <p>¿Interesado en trabajar juntos? Envíame un mensaje o conecta conmigo en redes sociales.</p>
+            <address>
+                <p>Email: <a href="mailto:juan.perez@example.com">juan.perez@example.com</a></p>
+                <p>Teléfono: <a href="tel:+34123456789">+34 123 456 789</a></p>
+            </address>
+            <div class="social-links-contact">
+                <a href="https://linkedin.com/in/juanperez" target="_blank">LinkedIn</a> |
+                <a href="https://github.com/juanperezdev" target="_blank">GitHub</a> |
+                <a href="https://twitter.com/juanperezdev" target="_blank">Twitter</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2023 Juan Pérez. Desarrollador Web Front-end.</p>
+            <p>Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Overlay para cerrar menú -->
+    <div class="nav-overlay"></div>
+
+    <!-- Script para menú hamburguesa -->
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        // Abrir/cerrar menú con botón hamburguesa
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer click en overlay
+        navOverlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+
+        // Cerrar menú al hacer click en un enlace
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                navOverlay.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
