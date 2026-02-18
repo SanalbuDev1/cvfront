@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle · PL/SQL · Modernización</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Cinzel:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --oracle-red:   #c0392b;
+    --oracle-red2:  #e74c3c;
+    --gold:         #d4a017;
+    --gold2:        #f0c040;
+    --blue:         #1a6fc4;
+    --blue2:        #3a9fd8;
+    --cream:        #f5e6c8;
+    --dim:          #8a7a60;
+    --bg:           #06080f;
+    --surface:      #0c1018;
+    --border:       rgba(212,160,23,0.18);
+  }
+
+  body {
+    background: #04060c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── CARD ─────────────────────────────────────── */
+  .card {
+    position: relative;
+    width: 960px;
+    height: 520px;
+    background: var(--bg);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow:
+      0 0 0 1px rgba(192,57,43,0.08),
+      0 0 80px rgba(192,57,43,0.08),
+      0 40px 120px rgba(0,0,0,0.9);
+  }
+
+  /* ── GRID TEXTURE ─────────────────────────────── */
+  .card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(212,160,23,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,160,23,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* ── AMBIENT GLOWS ────────────────────────────── */
+  .glow-red {
+    position: absolute;
+    width: 500px; height: 400px;
+    background: radial-gradient(ellipse, rgba(192,57,43,0.12) 0%, transparent 70%);
+    top: 50%; left: 20%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    animation: breathe 6s ease-in-out infinite;
+  }
+  .glow-blue {
+    position: absolute;
+    width: 400px; height: 350px;
+    background: radial-gradient(ellipse, rgba(26,111,196,0.1) 0%, transparent 70%);
+    top: 40%; left: 75%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    animation: breathe 8s ease-in-out infinite reverse;
+  }
+  .glow-gold {
+    position: absolute;
+    width: 300px; height: 200px;
+    background: radial-gradient(ellipse, rgba(212,160,23,0.07) 0%, transparent 70%);
+    top: 15%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  @keyframes breathe {
+    0%,100% { opacity: 0.7; transform: translate(-50%,-50%) scale(1); }
+    50%      { opacity: 1;   transform: translate(-50%,-50%) scale(1.15); }
+  }
+
+  /* ── SCANLINE ─────────────────────────────────── */
+  .scanline {
+    position: absolute;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(212,160,23,0.3), transparent);
+    top: -2px;
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+  @keyframes scan { to { top: 522px; } }
+
+  /* ── TITLE AREA ───────────────────────────────── */
+  .title-area {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 22px 40px 0;
+    text-align: center;
+  }
+  .title-main {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--oracle-red2) 0%, var(--gold2) 35%, #fff 60%, var(--blue2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(212,160,23,0.3));
+  }
+  .title-sub {
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--dim);
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .title-line {
+    width: 520px;
+    height: 1px;
+    margin: 10px auto 0;
+    background: linear-gradient(90deg, transparent, var(--oracle-red), var(--gold), var(--blue), transparent);
+    opacity: 0.5;
+  }
+
+  /* ── CORNER BRACKETS ──────────────────────────── */
+  .bracket {
+    position: absolute;
+    width: 30px; height: 30px;
+    opacity: 0.4;
+  }
+  .bracket.tl { top: 14px; left: 14px;
+    border-top: 1.5px solid var(--oracle-red2);
+    border-left: 1.5px solid var(--oracle-red2); }
+  .bracket.tr { top: 14px; right: 14px;
+    border-top: 1.5px solid var(--blue2);
+    border-right: 1.5px solid var(--blue2); }
+  .bracket.bl { bottom: 14px; left: 14px;
+    border-bottom: 1.5px solid var(--gold2);
+    border-left: 1.5px solid var(--gold2); }
+  .bracket.br { bottom: 14px; right: 14px;
+    border-bottom: 1.5px solid var(--gold2);
+    border-right: 1.5px solid var(--gold2); }
+
+  /* ── MAIN LAYOUT ──────────────────────────────── */
+  .layout {
+    position: absolute;
+    top: 88px; left: 0; right: 0; bottom: 0;
+    display: flex;
+    gap: 0;
+    padding: 0 24px 20px;
+  }
+
+  /* ── LEFT COLUMN ──────────────────────────────── */
+  .col-left {
+    width: 258px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── DB CYLINDER ──────────────────────────────── */
+  .db-cylinder {
+    position: relative;
+    padding: 14px 16px 14px;
+    background: linear-gradient(160deg, #140500 0%, #0a0200 100%);
+    border: 1px solid rgba(192,57,43,0.4);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .db-cylinder::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--oracle-red2), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%,100% { opacity: 0.5; } 50% { opacity: 1; }
+  }
+  .db-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .db-icon {
+    width: 28px; height: 28px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .db-icon svg { width: 100%; height: 100%; }
+  .db-title {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    color: var(--oracle-red2);
+    letter-spacing: 1px;
+  }
+  .db-version {
+    font-size: 8px;
+    color: var(--dim);
+    margin-top: 1px;
+  }
+  .db-pulse {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #00cc44;
+    margin-left: auto;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+    box-shadow: 0 0 6px #00cc44;
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; } 50% { opacity: 0.2; }
+  }
+
+  /* Table rows */
+  .table-rows { display: flex; flex-direction: column; gap: 3px; }
+  .trow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 14px;
+    opacity: 0;
+    animation: row-appear 0.4s forwards;
+  }
+  .trow:nth-child(1) { animation-delay: 0.2s; }
+  .trow:nth-child(2) { animation-delay: 0.5s; }
+  .trow:nth-child(3) { animation-delay: 0.8s; }
+  .trow:nth-child(4) { animation-delay: 1.1s; }
+  @keyframes row-appear { to { opacity: 1; } }
+  .tcell {
+    height: 10px;
+    border-radius: 2px;
+    background: rgba(192,57,43,0.2);
+    border: 1px solid rgba(192,57,43,0.15);
+  }
+  .trow.highlight .tcell { background: rgba(212,160,23,0.2); border-color: rgba(212,160,23,0.2); }
+
+  /* Stats row */
+  .db-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(212,160,23,0.1);
+  }
+  .stat-item { text-align: center; }
+  .stat-val { font-size: 11px; color: var(--gold2); font-weight: 600; }
+  .stat-lbl { font-size: 7px; color: var(--dim); margin-top: 1px; }
+
+  /* ── PLSQL CODE PANEL ─────────────────────────── */
+  .code-panel {
+    position: relative;
+    background: #080500;
+    border: 1px solid rgba(212,160,23,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    flex: 1;
+  }
+  .code-topbar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 10px;
+    background: rgba(212,160,23,0.05);
+    border-bottom: 1px solid rgba(212,160,23,0.1);
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot-r { background: #c0392b; }
+  .dot-y { background: #d4a017; }
+  .dot-g { background: #27ae60; }
+  .code-filename { font-size: 8px; color: var(--dim); margin-left: 6px; }
+  .code-body { padding: 8px 10px; font-size: 7.5px; line-height: 1.7; }
+  .kw  { color: #e06c75; }   /* keywords */
+  .fn  { color: #61afef; }   /* functions */
+  .str { color: #98c379; }   /* strings */
+  .cm  { color: #5c6370; }   /* comments */
+  .nb  { color: #d19a66; }   /* numbers/types */
+  .wh  { color: #abb2bf; }   /* white */
+  .cursor {
+    display: inline-block;
+    width: 5px; height: 10px;
+    background: var(--gold2);
+    vertical-align: middle;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ── PACKAGES MINI PANEL ──────────────────────── */
+  .pkg-panel {
+    background: #060408;
+    border: 1px solid rgba(192,57,43,0.2);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+  .pkg-label { font-size: 7.5px; color: var(--oracle-red2); margin-bottom: 5px; letter-spacing: 1px; font-weight: 600; }
+  .pkg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(192,57,43,0.07);
+    font-size: 7px;
+    color: var(--dim);
+  }
+  .pkg-item:last-child { border-bottom: none; }
+  .pkg-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--oracle-red); flex-shrink: 0; }
+  .pkg-dot.gold { background: var(--gold); }
+
+  /* ── CENTER COLUMN ────────────────────────────── */
+  .col-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+    position: relative;
+  }
+
+  /* ETL PIPELINE */
+  .etl-wrap {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .etl-label {
+    font-size: 8px;
+    color: var(--dim);
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  .etl-track {
+    position: relative;
+    height: 36px;
+    background: rgba(10,8,4,0.8);
+    border: 1px solid rgba(212,160,23,0.15);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  /* Flowing gradient inside pipe */
+  .etl-flow {
+    position: absolute;
+    inset: 4px;
+    border-radius: 14px;
+    background: linear-gradient(90deg,
+      rgba(192,57,43,0.15),
+      rgba(212,160,23,0.15),
+      rgba(26,111,196,0.15)
+    );
+    animation: flow-glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes flow-glow {
+    from { opacity: 0.4; }
+    to   { opacity: 1; }
+  }
+  .etl-steps {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    z-index: 2;
+  }
+  .etl-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+  .etl-step-label {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .etl-step-sub { font-size: 6px; opacity: 0.5; }
+  .etl-arrow { color: var(--gold); opacity: 0.6; font-size: 14px; line-height: 36px; }
+
+  /* Packet animation */
+  .etl-packets {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .packet {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 10px;
+    border-radius: 5px;
+    animation: move-packet linear infinite;
+  }
+  .packet-1 { width: 24px; background: rgba(192,57,43,0.8); animation-duration: 2.2s; animation-delay: 0s; box-shadow: 0 0 8px rgba(192,57,43,0.6); }
+  .packet-2 { width: 18px; background: rgba(212,160,23,0.8); animation-duration: 2.2s; animation-delay: 0.7s; box-shadow: 0 0 8px rgba(212,160,23,0.6); }
+  .packet-3 { width: 14px; background: rgba(26,111,196,0.8); animation-duration: 2.2s; animation-delay: 1.4s; box-shadow: 0 0 8px rgba(26,111,196,0.6); }
+  @keyframes move-packet {
+    from { left: -30px; }
+    to   { left: calc(100% + 30px); }
+  }
+
+  /* Migration arrow big */
+  .migrate-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0 10px;
+    font-size: 8px;
+    color: var(--dim);
+    letter-spacing: 2px;
+  }
+  .arrow-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--oracle-red), var(--gold), var(--blue));
+    opacity: 0.4;
+  }
+  .arrow-head { color: var(--gold2); font-size: 18px; animation: bounce-r 2s ease-in-out infinite; }
+  @keyframes bounce-r {
+    0%,100% { transform: translateX(0); }
+    50%      { transform: translateX(4px); }
+  }
+
+  /* STATUS BADGES */
+  .badges {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+  }
+  .badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1px solid;
+    opacity: 0;
+    animation: badge-in 0.5s forwards;
+  }
+  .badge:nth-child(1) { animation-delay: 0.3s; border-color: rgba(192,57,43,0.3); background: rgba(192,57,43,0.05); }
+  .badge:nth-child(2) { animation-delay: 0.6s; border-color: rgba(212,160,23,0.3); background: rgba(212,160,23,0.04); }
+  .badge:nth-child(3) { animation-delay: 0.9s; border-color: rgba(26,111,196,0.3); background: rgba(26,111,196,0.05); }
+  @keyframes badge-in { to { opacity: 1; } }
+
+  .badge-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .badge-title { font-size: 9px; font-weight: 600; margin-bottom: 2px; }
+  .badge-desc  { font-size: 7.5px; color: var(--dim); line-height: 1.5; }
+  .badge:nth-child(1) .badge-title { color: var(--oracle-red2); }
+  .badge:nth-child(2) .badge-title { color: var(--gold2); }
+  .badge:nth-child(3) .badge-title { color: var(--blue2); }
+
+  /* ── RIGHT COLUMN ─────────────────────────────── */
+  .col-right {
+    width: 248px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .stack-card {
+    background: #06080f;
+    border: 1px solid rgba(26,111,196,0.25);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    animation: card-slide 0.5s forwards;
+  }
+  .stack-card:nth-child(1) { animation-delay: 0.1s; }
+  .stack-card:nth-child(2) { animation-delay: 0.25s; }
+  .stack-card:nth-child(3) { animation-delay: 0.4s; }
+  .stack-card:nth-child(4) { animation-delay: 0.55s; }
+  @keyframes card-slide {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .stack-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px 5px;
+    border-bottom: 1px solid rgba(26,111,196,0.1);
+    background: rgba(26,111,196,0.05);
+  }
+  .stack-icon { font-size: 10px; }
+  .stack-name { font-size: 8.5px; font-weight: 600; color: var(--blue2); letter-spacing: 0.5px; }
+  .stack-status {
+    margin-left: auto;
+    font-size: 6.5px;
+    color: #00cc44;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .stack-status::before {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #00cc44;
+    display: inline-block;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+    box-shadow: 0 0 4px #00cc44;
+  }
+  .stack-body { padding: 6px 10px 7px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag {
+    font-size: 6.5px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(26,111,196,0.12);
+    border: 1px solid rgba(26,111,196,0.2);
+    color: #7ab8e8;
+  }
+  .tag.gold-tag {
+    background: rgba(212,160,23,0.1);
+    border-color: rgba(212,160,23,0.2);
+    color: var(--gold2);
+  }
+
+  /* Progress bar inside stack card */
+  .prog-wrap { margin-top: 6px; }
+  .prog-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 6.5px;
+    color: var(--dim);
+    margin-bottom: 3px;
+  }
+  .prog-track {
+    height: 4px;
+    background: rgba(26,111,196,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--oracle-red), var(--gold), var(--blue2));
+    animation: prog-grow 2s ease-out forwards;
+  }
+  @keyframes prog-grow { from { width: 0; } }
+
+  /* ── BOTTOM STRIP ─────────────────────────────── */
+  .bottom-strip {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 32px;
+    border-top: 1px solid rgba(212,160,23,0.07);
+    background: rgba(6,4,0,0.6);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 28px;
+    overflow: hidden;
+  }
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 7.5px;
+    color: var(--dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .strip-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .rd { background: var(--oracle-red2); box-shadow: 0 0 5px var(--oracle-red2); }
+  .gd { background: var(--gold2);       box-shadow: 0 0 5px var(--gold2); }
+  .bd { background: var(--blue2);       box-shadow: 0 0 5px var(--blue2); }
+  .strip-val { color: #ccc; font-weight: 600; }
+
+  /* scrolling ticker */
+  .ticker-wrap {
+    flex: 1;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  }
+  .ticker {
+    display: flex;
+    gap: 60px;
+    white-space: nowrap;
+    animation: ticker 18s linear infinite;
+    font-size: 7px;
+    color: rgba(212,160,23,0.25);
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="glow-red"></div>
+  <div class="glow-blue"></div>
+  <div class="glow-gold"></div>
+  <div class="scanline"></div>
+
+  <!-- Corner brackets -->
+  <div class="bracket tl"></div>
+  <div class="bracket tr"></div>
+  <div class="bracket bl"></div>
+  <div class="bracket br"></div>
+
+  <!-- Title -->
+  <div class="title-area">
+    <div class="title-main">PL/SQL · ORACLE · MODERNIZACIÓN</div>
+    <div class="title-sub">Database Engineering &nbsp;·&nbsp; Legacy Migration &nbsp;·&nbsp; Cloud-Native Architecture</div>
+    <div class="title-line"></div>
+  </div>
+
+  <!-- Main layout -->
+  <div class="layout">
+
+    <!-- LEFT: Oracle DB + code -->
+    <div class="col-left">
+
+      <!-- Oracle DB block -->
+      <div class="db-cylinder">
+        <div class="db-header">
+          <div class="db-icon">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14" cy="7" rx="11" ry="4" stroke="#c0392b" stroke-width="1.5"/>
+              <ellipse cx="14" cy="21" rx="11" ry="4" stroke="#c0392b" stroke-width="1.5"/>
+              <line x1="3" y1="7" x2="3" y2="21" stroke="#c0392b" stroke-width="1.5"/>
+              <line x1="25" y1="7" x2="25" y2="21" stroke="#c0392b" stroke-width="1.5"/>
+              <ellipse cx="14" cy="14" rx="11" ry="4" fill="none" stroke="rgba(192,57,43,0.4)" stroke-width="1"/>
+            </svg>
+          </div>
+          <div>
+            <div class="db-title">ORACLE DB</div>
+            <div class="db-version">19c · RAC · Exadata</div>
+          </div>
+          <div class="db-pulse"></div>
+        </div>
+        <div class="table-rows">
+          <div class="trow"><div class="tcell" style="width:36px"></div><div class="tcell" style="width:52px"></div><div class="tcell" style="width:28px"></div></div>
+          <div class="trow"><div class="tcell" style="width:44px"></div><div class="tcell" style="width:40px"></div><div class="tcell" style="width:36px"></div></div>
+          <div class="trow highlight"><div class="tcell" style="width:30px"></div><div class="tcell" style="width:56px"></div><div class="tcell" style="width:22px"></div></div>
+          <div class="trow"><div class="tcell" style="width:48px"></div><div class="tcell" style="width:32px"></div><div class="tcell" style="width:40px"></div></div>
+        </div>
+        <div class="db-stats">
+          <div class="stat-item"><div class="stat-val">48M</div><div class="stat-lbl">RECORDS</div></div>
+          <div class="stat-item"><div class="stat-val">99.9%</div><div class="stat-lbl">UPTIME</div></div>
+          <div class="stat-item"><div class="stat-val">0.8s</div><div class="stat-lbl">AVG QUERY</div></div>
+        </div>
+      </div>
+
+      <!-- PL/SQL code -->
+      <div class="code-panel">
+        <div class="code-topbar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="code-filename">migration_pkg.sql</span>
+        </div>
+        <div class="code-body">
+          <div><span class="cm">-- Stored Procedure</span></div>
+          <div><span class="kw">CREATE OR REPLACE PROCEDURE</span></div>
+          <div>&nbsp;<span class="fn">migrate_records</span>(<span class="nb">p_batch</span> <span class="kw">IN NUMBER</span>)</div>
+          <div><span class="kw">IS</span></div>
+          <div>&nbsp;<span class="nb">v_count</span> <span class="kw">NUMBER</span> := 0;</div>
+          <div><span class="kw">BEGIN</span></div>
+          <div>&nbsp;<span class="kw">UPDATE</span> <span class="wh">legacy_tbl</span> <span class="kw">SET</span></div>
+          <div>&nbsp;&nbsp;status = <span class="str">'MIGRATED'</span></div>
+          <div>&nbsp;&nbsp;<span class="kw">WHERE</span> batch_id = p_batch;</div>
+          <div>&nbsp;<span class="fn">COMMIT</span>;<span class="cursor"></span></div>
+        </div>
+      </div>
+
+      <!-- Packages mini -->
+      <div class="pkg-panel">
+        <div class="pkg-label">▸ PACKAGES &amp; TRIGGERS</div>
+        <div class="pkg-item"><div class="pkg-dot"></div>pkg_billing · pkg_reports</div>
+        <div class="pkg-item"><div class="pkg-dot"></div>pkg_audit · pkg_migration</div>
+        <div class="pkg-item"><div class="pkg-dot gold"></div>BEFORE INSERT · AFTER UPDATE</div>
+        <div class="pkg-item"><div class="pkg-dot gold"></div>ON COMMIT · COMPOUND TRIGGER</div>
+      </div>
+
+    </div><!-- /col-left -->
+
+    <!-- CENTER -->
+    <div class="col-center">
+
+      <!-- ETL pipeline -->
+      <div class="etl-wrap">
+        <div class="etl-label">PIPELINE ETL</div>
+        <div class="etl-track">
+          <div class="etl-flow"></div>
+          <div class="etl-steps">
+            <div class="etl-step">
+              <div class="etl-step-label" style="color:#e74c3c">EXTRACT</div>
+              <div class="etl-step-sub">Oracle Source</div>
+            </div>
+            <div class="etl-arrow">›</div>
+            <div class="etl-step">
+              <div class="etl-step-label" style="color:#d4a017">TRANSFORM</div>
+              <div class="etl-step-sub">PL/SQL Logic</div>
+            </div>
+            <div class="etl-arrow">›</div>
+            <div class="etl-step">
+              <div class="etl-step-label" style="color:#1a6fc4">LOAD</div>
+              <div class="etl-step-sub">Modern DB</div>
+            </div>
+          </div>
+          <div class="etl-packets">
+            <div class="packet packet-1"></div>
+            <div class="packet packet-2"></div>
+            <div class="packet packet-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="migrate-arrow">
+        <div class="arrow-line"></div>
+        <span class="arrow-head">⟶</span>
+        <div class="arrow-line" style="max-width:24px"></div>
+      </div>
+
+      <!-- Status badges -->
+      <div class="badges">
+        <div class="badge">
+          <div class="badge-icon">🗄️</div>
+          <div>
+            <div class="badge-title">PL/SQL &amp; Stored Procedures</div>
+            <div class="badge-desc">Packages, triggers, cursors, bulk collect, dynamic SQL y optimización de queries complejas</div>
+          </div>
+        </div>
+        <div class="badge">
+          <div class="badge-icon">⚙️</div>
+          <div>
+            <div class="badge-title">Migración de Datos</div>
+            <div class="badge-desc">ETL pipelines, Flyway / Liquibase, transformación schema y validación de integridad referencial</div>
+          </div>
+        </div>
+        <div class="badge">
+          <div class="badge-icon">☁️</div>
+          <div>
+            <div class="badge-title">Modernización Cloud-Native</div>
+            <div class="badge-desc">Refactoring legacy → microservicios, ORM/JPA, CI/CD pipelines y deployment en Kubernetes</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /col-center -->
+
+    <!-- RIGHT: Modern stack -->
+    <div class="col-right">
+
+      <div class="stack-card">
+        <div class="stack-header">
+          <span class="stack-icon">⬡</span>
+          <span class="stack-name">FRONTEND</span>
+          <span class="stack-status">running</span>
+        </div>
+        <div class="stack-body">
+          <div class="tags">
+            <span class="tag">React 18</span>
+            <span class="tag">Next.js 14</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Tailwind</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-header">
+          <span class="stack-icon">⬡</span>
+          <span class="stack-name">BACKEND / API</span>
+          <span class="stack-status">running</span>
+        </div>
+        <div class="stack-body">
+          <div class="tags">
+            <span class="tag">Spring Boot</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">REST · gRPC</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-header">
+          <span class="stack-icon">⬡</span>
+          <span class="stack-name">MIGRATION BRIDGE</span>
+          <span class="stack-status">active</span>
+        </div>
+        <div class="stack-body">
+          <div class="tags">
+            <span class="tag gold-tag">Flyway</span>
+            <span class="tag gold-tag">Liquibase</span>
+            <span class="tag gold-tag">ORM/JPA</span>
+          </div>
+          <div class="prog-wrap">
+            <div class="prog-label"><span>Migration progress</span><span style="color:var(--gold2)">79%</span></div>
+            <div class="prog-track"><div class="prog-fill" style="width:79%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-card">
+        <div class="stack-header">
+          <span class="stack-icon">⬡</span>
+          <span class="stack-name">CLOUD / INFRA</span>
+          <span class="stack-status">healthy</span>
+        </div>
+        <div class="stack-body">
+          <div class="tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Kubernetes</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">AWS · GCP</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /col-right -->
+
+  </div><!-- /layout -->
+
+  <!-- Bottom strip ticker -->
+  <div class="bottom-strip">
+    <div class="strip-item"><div class="strip-dot rd"></div>ORACLE 19c <span class="strip-val">ONLINE</span></div>
+    <div class="strip-item"><div class="strip-dot gd"></div>ROWS MIGRATED <span class="strip-val">48,291</span></div>
+    <div class="strip-item"><div class="strip-dot bd"></div>SERVICES <span class="strip-val">12/12</span></div>
+    <div class="ticker-wrap">
+      <div class="ticker">
+        <span>SELECT * FROM legacy_schema.orders WHERE status='PENDING' · EXECUTE pkg_migration.run_batch(p_id=>42) · COMMIT · ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD' · kubectl rollout status deploy/api-service · flyway migrate -url=jdbc:oracle:thin:@host:1521:ORCL · &nbsp;</span>
+        <span>SELECT * FROM legacy_schema.orders WHERE status='PENDING' · EXECUTE pkg_migration.run_batch(p_id=>42) · COMMIT · ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD' · kubectl rollout status deploy/api-service · flyway migrate -url=jdbc:oracle:thin:@host:1521:ORCL · &nbsp;</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
