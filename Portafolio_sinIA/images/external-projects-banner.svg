@@ -1,0 +1,380 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520">
+  <defs>
+    <!-- Backgrounds -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d0d1a"/>
+      <stop offset="50%" style="stop-color:#080818"/>
+      <stop offset="100%" style="stop-color:#0a0a20"/>
+    </linearGradient>
+
+    <!-- Glow filters -->
+    <filter id="gPurple">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="gOrange">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="gTeal">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="gSoft">
+      <feGaussianBlur stdDeviation="10" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="gTitle">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Grid -->
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#12122a" stroke-width="0.6"/>
+    </pattern>
+
+    <!-- Color gradients -->
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#bf00ff"/>
+      <stop offset="100%" style="stop-color:#6600cc"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6600"/>
+      <stop offset="100%" style="stop-color:#cc3300"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4aa"/>
+      <stop offset="100%" style="stop-color:#007766"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#bf00ff"/>
+      <stop offset="40%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#00d4aa"/>
+    </linearGradient>
+    <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#bf00ff;stop-opacity:0.6"/>
+      <stop offset="50%" style="stop-color:#ff6600;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#00d4aa;stop-opacity:0.6"/>
+    </linearGradient>
+    <radialGradient id="hubGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#1a0a2e"/>
+      <stop offset="100%" style="stop-color:#0d0d1a"/>
+    </radialGradient>
+
+    <!-- Clip -->
+    <clipPath id="clip"><rect width="960" height="520" rx="14"/></clipPath>
+  </defs>
+
+  <!-- BG -->
+  <rect width="960" height="520" fill="url(#bg)" rx="14"/>
+  <rect width="960" height="520" fill="url(#grid)"/>
+
+  <!-- Ambient blobs -->
+  <ellipse cx="200" cy="420" rx="220" ry="140" fill="#bf00ff" opacity="0.04"/>
+  <ellipse cx="760" cy="100" rx="200" ry="140" fill="#00d4aa" opacity="0.05"/>
+  <ellipse cx="480" cy="280" rx="300" ry="200" fill="#ff6600" opacity="0.025"/>
+
+  <!-- ===== PIPELINE BACKBONE (center horizontal pipe) ===== -->
+  <!-- Main pipeline tube -->
+  <rect x="160" y="258" width="640" height="20" rx="10" fill="#0a0a1a" stroke="#2a1a4a" stroke-width="1.5"/>
+  <!-- Flowing gradient inside pipe -->
+  <rect x="160" y="261" width="640" height="14" rx="7" fill="url(#pipeGrad)" opacity="0.3">
+    <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Pipeline segments with colored flow -->
+  <!-- Segment 1: API -> Hub (purple) -->
+  <rect x="165" y="262" width="190" height="12" rx="6" fill="none" stroke="#bf00ff" stroke-width="1" stroke-dasharray="8,6" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;-28" dur="1.5s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Segment 2: Hub -> Rabbit (orange) -->
+  <rect x="395" y="262" width="180" height="12" rx="6" fill="none" stroke="#ff6600" stroke-width="1" stroke-dasharray="8,6" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;-28" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Segment 3: Rabbit -> Modern (teal) -->
+  <rect x="610" y="262" width="185" height="12" rx="6" fill="none" stroke="#00d4aa" stroke-width="1" stroke-dasharray="8,6" opacity="0.6">
+    <animate attributeName="stroke-dashoffset" values="0;-28" dur="1.8s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Vertical pipes to sub-nodes -->
+  <!-- API down pipe -->
+  <line x1="220" y1="278" x2="220" y2="340" stroke="#bf00ff" stroke-width="2" stroke-dasharray="5,4" opacity="0.5">
+    <animate attributeName="stroke-dashoffset" values="0;18" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <!-- RabbitMQ up pipe -->
+  <line x1="575" y1="258" x2="575" y2="185" stroke="#ff6600" stroke-width="2" stroke-dasharray="5,4" opacity="0.5">
+    <animate attributeName="stroke-dashoffset" values="0;-18" dur="1.5s" repeatCount="indefinite"/>
+  </line>
+  <!-- Modern down pipe -->
+  <line x1="750" y1="278" x2="750" y2="350" stroke="#00d4aa" stroke-width="2" stroke-dasharray="5,4" opacity="0.5">
+    <animate attributeName="stroke-dashoffset" values="0;18" dur="2.2s" repeatCount="indefinite"/>
+  </line>
+
+
+  <!-- ===== TRAVELING MESSAGE PACKETS ===== -->
+  <!-- Packet L->R segment 1 -->
+  <g>
+    <rect width="22" height="10" rx="3" fill="#bf00ff" opacity="0.9" filter="url(#gPurple)">
+      <animateMotion dur="2.5s" repeatCount="indefinite">
+        <mpath href="#seg1path"/>
+      </animateMotion>
+    </rect>
+    <path id="seg1path" d="M 170 268 L 355 268" fill="none"/>
+  </g>
+  <!-- Packet L->R segment 2 -->
+  <g>
+    <rect width="22" height="10" rx="3" fill="#ff6600" opacity="0.9" filter="url(#gOrange)">
+      <animateMotion dur="2s" repeatCount="indefinite" begin="0.6s">
+        <mpath href="#seg2path"/>
+      </animateMotion>
+    </rect>
+    <path id="seg2path" d="M 400 268 L 575 268" fill="none"/>
+  </g>
+  <!-- Packet L->R segment 3 -->
+  <g>
+    <rect width="22" height="10" rx="3" fill="#00d4aa" opacity="0.9" filter="url(#gTeal)">
+      <animateMotion dur="2.2s" repeatCount="indefinite" begin="1s">
+        <mpath href="#seg3path"/>
+      </animateMotion>
+    </rect>
+    <path id="seg3path" d="M 615 268 L 790 268" fill="none"/>
+  </g>
+  <!-- Return packet R->L -->
+  <g>
+    <rect width="16" height="8" rx="3" fill="#ffffff" opacity="0.4">
+      <animateMotion dur="4s" repeatCount="indefinite" begin="0.3s">
+        <mpath href="#retPath"/>
+      </animateMotion>
+    </rect>
+    <path id="retPath" d="M 790 273 L 170 273" fill="none"/>
+  </g>
+
+
+  <!-- ===== HUB CENTER NODE ===== -->
+  <!-- Outer glow rings -->
+  <circle cx="380" cy="268" r="55" fill="none" stroke="#bf00ff" stroke-width="1" opacity="0.3">
+    <animate attributeName="r" values="55;70;55" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0;0.3" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="380" cy="268" r="55" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.2">
+    <animate attributeName="r" values="55;75;55" dur="4s" repeatCount="indefinite" begin="1s"/>
+    <animate attributeName="opacity" values="0.2;0;0.2" dur="4s" repeatCount="indefinite" begin="1s"/>
+  </circle>
+
+  <!-- Hub body -->
+  <circle cx="380" cy="268" r="52" fill="url(#hubGrad)" stroke="#bf00ff" stroke-width="2" filter="url(#gPurple)">
+    <animate attributeName="stroke" values="#bf00ff;#ff6600;#00d4aa;#bf00ff" dur="6s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Rotating outer ring -->
+  <circle cx="380" cy="268" r="52" fill="none" stroke="#bf00ff" stroke-width="1.5" stroke-dasharray="10,20" opacity="0.5">
+    <animateTransform attributeName="transform" type="rotate" from="0 380 268" to="360 380 268" dur="10s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="380" cy="268" r="44" fill="none" stroke="#ff6600" stroke-width="1" stroke-dasharray="6,30" opacity="0.4">
+    <animateTransform attributeName="transform" type="rotate" from="360 380 268" to="0 380 268" dur="7s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Hub icon: Integration/API symbol -->
+  <!-- Curly braces { } -->
+  <text x="380" y="262" font-family="'Courier New', monospace" font-size="30" fill="#bf00ff" text-anchor="middle" opacity="0.9" font-weight="bold">{</text>
+  <text x="380" y="285" font-family="'Courier New', monospace" font-size="11" fill="#ffffff" text-anchor="middle" opacity="0.7">REST</text>
+  <!-- Small arrows -->
+  <text x="395" y="262" font-family="'Courier New', monospace" font-size="14" fill="#ff6600" opacity="0.8">⇄</text>
+
+  <!-- Hub label -->
+  <rect x="330" y="326" width="102" height="22" rx="4" fill="#0d0d1a" stroke="#bf00ff" stroke-width="1" opacity="0.9"/>
+  <text x="381" y="341" font-family="'Courier New', monospace" font-size="10" fill="#bf00ff" text-anchor="middle" font-weight="bold">API GATEWAY</text>
+
+
+  <!-- ===== API MANAGEMENT NODE (left) ===== -->
+  <g filter="url(#gPurple)">
+    <rect x="90" y="210" width="120" height="115" rx="10" fill="#0d0520" stroke="#bf00ff" stroke-width="2"/>
+  </g>
+  <rect x="90" y="210" width="120" height="115" rx="10" fill="#0d0520" stroke="#bf00ff" stroke-width="2">
+    <animate attributeName="stroke-opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- API icon: endpoints list -->
+  <text x="150" y="230" font-family="'Courier New', monospace" font-size="9" fill="#bf00ff" text-anchor="middle" opacity="0.7" font-weight="bold">ENDPOINTS</text>
+  <!-- GET -->
+  <rect x="98" y="234" width="28" height="10" rx="2" fill="#1a4020"/>
+  <text x="112" y="242" font-family="'Courier New', monospace" font-size="8" fill="#00cc44" text-anchor="middle" font-weight="bold">GET</text>
+  <text x="148" y="242" font-family="'Courier New', monospace" font-size="7" fill="#8888aa">/api/v2/data</text>
+  <!-- POST -->
+  <rect x="98" y="248" width="28" height="10" rx="2" fill="#1a2840"/>
+  <text x="112" y="256" font-family="'Courier New', monospace" font-size="8" fill="#4488ff" text-anchor="middle" font-weight="bold">POST</text>
+  <text x="148" y="256" font-family="'Courier New', monospace" font-size="7" fill="#8888aa">/api/v2/send</text>
+  <!-- PUT -->
+  <rect x="98" y="262" width="28" height="10" rx="2" fill="#2a1800"/>
+  <text x="112" y="270" font-family="'Courier New', monospace" font-size="8" fill="#ff9900" text-anchor="middle" font-weight="bold">PUT</text>
+  <text x="148" y="270" font-family="'Courier New', monospace" font-size="7" fill="#8888aa">/api/v2/upd</text>
+  <!-- DEL -->
+  <rect x="98" y="276" width="28" height="10" rx="2" fill="#2a0800"/>
+  <text x="112" y="284" font-family="'Courier New', monospace" font-size="8" fill="#ff3355" text-anchor="middle" font-weight="bold">DEL</text>
+  <text x="148" y="284" font-family="'Courier New', monospace" font-size="7" fill="#8888aa">/api/v2/del</text>
+
+  <!-- Status indicator -->
+  <circle cx="205" cy="216" r="5" fill="#00cc44">
+    <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <!-- Response time -->
+  <text x="150" y="302" font-family="'Courier New', monospace" font-size="8" fill="#bf00ff" text-anchor="middle" opacity="0.8">◈ 42ms · 200 OK</text>
+  <rect x="98" y="307" width="104" height="5" rx="2" fill="#1a0a2e"/>
+  <rect x="98" y="307" width="88" height="5" rx="2" fill="#bf00ff" opacity="0.7">
+    <animate attributeName="width" values="60;104;60" dur="4s" repeatCount="indefinite"/>
+  </rect>
+
+  <rect x="80" y="332" width="142" height="20" rx="4" fill="#0d0d1a" stroke="#bf00ff" stroke-width="1" opacity="0.9"/>
+  <text x="151" y="346" font-family="'Courier New', monospace" font-size="9" fill="#bf00ff" text-anchor="middle" font-weight="bold">REST · GraphQL · gRPC</text>
+
+
+  <!-- ===== RABBITMQ NODE (top center) ===== -->
+  <g filter="url(#gOrange)">
+    <rect x="500" y="90" width="150" height="130" rx="10" fill="#1a0800" stroke="#ff6600" stroke-width="2"/>
+  </g>
+  <rect x="500" y="90" width="150" height="130" rx="10" fill="#1a0800" stroke="#ff6600" stroke-width="2">
+    <animate attributeName="stroke-opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- RabbitMQ rabbit ears icon -->
+  <!-- Ears -->
+  <ellipse cx="549" cy="108" rx="8" ry="14" fill="none" stroke="#ff6600" stroke-width="2" opacity="0.9"/>
+  <ellipse cx="601" cy="108" rx="8" ry="14" fill="none" stroke="#ff6600" stroke-width="2" opacity="0.9"/>
+  <!-- Inner ear -->
+  <ellipse cx="549" cy="109" rx="4" ry="9" fill="#ff6600" opacity="0.3"/>
+  <ellipse cx="601" cy="109" rx="4" ry="9" fill="#ff6600" opacity="0.3"/>
+  <!-- Head -->
+  <ellipse cx="575" cy="132" rx="22" ry="18" fill="#1a0800" stroke="#ff6600" stroke-width="2" opacity="0.9"/>
+  <!-- Eyes -->
+  <circle cx="567" cy="129" r="3" fill="#ff6600"/>
+  <circle cx="583" cy="129" r="3" fill="#ff6600"/>
+  <!-- Nose -->
+  <circle cx="575" cy="137" r="2" fill="#ff9900"/>
+
+  <!-- Queue visualization -->
+  <text x="575" y="163" font-family="'Courier New', monospace" font-size="8" fill="#ff6600" text-anchor="middle" opacity="0.7">QUEUES</text>
+  <!-- Queue blocks -->
+  <rect x="510" y="167" width="24" height="12" rx="2" fill="#ff6600" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="537" y="167" width="24" height="12" rx="2" fill="#ff6600" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="564" y="167" width="24" height="12" rx="2" fill="#ff6600" opacity="0.4">
+    <animate attributeName="opacity" values="0.4;0.8;0.4" dur="0.8s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="591" y="167" width="24" height="12" rx="2" fill="#ff6600" opacity="0.2">
+    <animate attributeName="opacity" values="0.2;0.6;0.2" dur="1.5s" repeatCount="indefinite"/>
+  </rect>
+  <!-- Arrows between queue blocks -->
+  <text x="534" y="176" font-family="'Courier New', monospace" font-size="9" fill="#ff9900" opacity="0.7">→</text>
+  <text x="561" y="176" font-family="'Courier New', monospace" font-size="9" fill="#ff9900" opacity="0.7">→</text>
+  <text x="588" y="176" font-family="'Courier New', monospace" font-size="9" fill="#ff9900" opacity="0.7">→</text>
+
+  <!-- Message count badge -->
+  <text x="575" y="197" font-family="'Courier New', monospace" font-size="8" fill="#ff9900" text-anchor="middle">msgs: <tspan fill="#ffffff">1,247</tspan></text>
+  <text x="575" y="210" font-family="'Courier New', monospace" font-size="8" fill="#ff6600" text-anchor="middle" opacity="0.7">consumer: <tspan fill="#00cc44">active</tspan></text>
+
+  <rect x="493" y="228" width="166" height="20" rx="4" fill="#0d0d1a" stroke="#ff6600" stroke-width="1" opacity="0.9"/>
+  <text x="576" y="242" font-family="'Courier New', monospace" font-size="9" fill="#ff6600" text-anchor="middle" font-weight="bold">RABBITMQ · AMQP · BROKER</text>
+
+
+  <!-- ===== CODE MODERNIZATION NODE (right) ===== -->
+  <g filter="url(#gTeal)">
+    <rect x="760" y="200" width="148" height="145" rx="10" fill="#001a14" stroke="#00d4aa" stroke-width="2"/>
+  </g>
+  <rect x="760" y="200" width="148" height="145" rx="10" fill="#001a14" stroke="#00d4aa" stroke-width="2">
+    <animate attributeName="stroke-opacity" values="1;0.3;1" dur="4s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Code transformation visual: old -> new -->
+  <!-- OLD code (fading out) -->
+  <text x="770" y="218" font-family="'Courier New', monospace" font-size="7" fill="#aa4444" opacity="0.7">// Legacy COBOL</text>
+  <text x="770" y="228" font-family="'Courier New', monospace" font-size="7" fill="#774444" opacity="0.6">PERFORM 100-INIT</text>
+  <text x="770" y="237" font-family="'Courier New', monospace" font-size="7" fill="#663333" opacity="0.5">MOVE WS-DATA TO</text>
+  <text x="770" y="246" font-family="'Courier New', monospace" font-size="7" fill="#552222" opacity="0.4">OUT-RECORD</text>
+  <!-- Strikethrough lines -->
+  <line x1="770" y1="226" x2="898" y2="226" stroke="#ff3355" stroke-width="0.5" opacity="0.4"/>
+  <line x1="770" y1="235" x2="870" y2="235" stroke="#ff3355" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Arrow transform -->
+  <text x="834" y="265" font-family="'Courier New', monospace" font-size="16" fill="#00d4aa" text-anchor="middle" font-weight="bold">⇓</text>
+  <text x="834" y="278" font-family="'Courier New', monospace" font-size="7" fill="#00d4aa" text-anchor="middle" opacity="0.6">MODERNIZE</text>
+
+  <!-- NEW code (appearing) -->
+  <text x="770" y="292" font-family="'Courier New', monospace" font-size="7" fill="#00d4aa" opacity="0.8">// Modern TypeScript</text>
+  <text x="770" y="302" font-family="'Courier New', monospace" font-size="7" fill="#4488ff">async <tspan fill="#00d4aa">function</tspan> <tspan fill="#ffffff">init()</tspan></text>
+  <text x="770" y="312" font-family="'Courier New', monospace" font-size="7" fill="#ffffff">  const data = <tspan fill="#00d4aa">await</tspan></text>
+  <text x="770" y="322" font-family="'Courier New', monospace" font-size="7" fill="#ffffff">    fetch(<tspan fill="#ffaa44">'/api/v2'</tspan>)</text>
+  <text x="770" y="332" font-family="'Courier New', monospace" font-size="7" fill="#00d4aa">  return data.json();</text>
+
+  <!-- Typing cursor -->
+  <rect x="895" y="326" width="6" height="8" fill="#00d4aa">
+    <animate attributeName="opacity" values="1;0;1" dur="0.8s" repeatCount="indefinite"/>
+  </rect>
+
+  <rect x="750" y="353" width="168" height="20" rx="4" fill="#0d0d1a" stroke="#00d4aa" stroke-width="1" opacity="0.9"/>
+  <text x="834" y="367" font-family="'Courier New', monospace" font-size="9" fill="#00d4aa" text-anchor="middle" font-weight="bold">MODERNIZACIÓN · REFACTOR</text>
+
+
+  <!-- ===== FLOATING STATUS CARDS ===== -->
+  <!-- Card 1: Event driven -->
+  <g>
+    <animate attributeName="opacity" values="0;1;1;0" dur="6s" begin="0.5s" repeatCount="indefinite"/>
+    <rect x="280" y="370" width="158" height="46" rx="6" fill="#0d0520" stroke="#bf00ff" stroke-width="1.2" opacity="0.95"/>
+    <text x="292" y="386" font-family="'Courier New', monospace" font-size="9" fill="#bf00ff">⚡ EVENT-DRIVEN</text>
+    <text x="292" y="398" font-family="'Courier New', monospace" font-size="8" fill="#886699">Pub/Sub pattern active</text>
+    <text x="292" y="410" font-family="'Courier New', monospace" font-size="8" fill="#886699">latency: <tspan fill="#00cc44">8ms</tspan></text>
+  </g>
+
+  <!-- Card 2: Microservices -->
+  <g>
+    <animate attributeName="opacity" values="0;1;1;0" dur="6s" begin="2.5s" repeatCount="indefinite"/>
+    <rect x="460" y="370" width="160" height="46" rx="6" fill="#001a14" stroke="#00d4aa" stroke-width="1.2" opacity="0.95"/>
+    <text x="472" y="386" font-family="'Courier New', monospace" font-size="9" fill="#00d4aa">⬡ MICROSERVICIOS</text>
+    <text x="472" y="398" font-family="'Courier New', monospace" font-size="8" fill="#336655">Services: <tspan fill="#ffffff">12</tspan> running</text>
+    <text x="472" y="410" font-family="'Courier New', monospace" font-size="8" fill="#336655">uptime: <tspan fill="#00cc44">99.8%</tspan></text>
+  </g>
+
+  <!-- Card 3: Auth token -->
+  <g>
+    <animate attributeName="opacity" values="0;1;1;0" dur="7s" begin="4s" repeatCount="indefinite"/>
+    <rect x="100" y="390" width="145" height="46" rx="6" fill="#0d0520" stroke="#bf00ff" stroke-width="1.2" opacity="0.95"/>
+    <text x="112" y="406" font-family="'Courier New', monospace" font-size="9" fill="#bf00ff">🔑 JWT · OAuth 2.0</text>
+    <text x="112" y="418" font-family="'Courier New', monospace" font-size="8" fill="#664488">Token: <tspan fill="#00cc44">valid</tspan></text>
+    <text x="112" y="430" font-family="'Courier New', monospace" font-size="8" fill="#664488">exp: 3600s</text>
+  </g>
+
+
+  <!-- ===== FLOATING CODE SNIPPETS ===== -->
+  <text x="40" y="65" font-family="'Courier New', monospace" font-size="8" fill="#bf00ff" opacity="0.15">channel.basicPublish(exchange, routingKey, null, body)</text>
+  <text x="600" y="470" font-family="'Courier New', monospace" font-size="8" fill="#00d4aa" opacity="0.15">const client = new RestClient({ baseUrl, timeout: 5000 })</text>
+  <text x="40" y="480" font-family="'Courier New', monospace" font-size="8" fill="#ff6600" opacity="0.15">queue.declare({ durable: true, autoDelete: false })</text>
+  <text x="620" y="35" font-family="'Courier New', monospace" font-size="8" fill="#bf00ff" opacity="0.15">swagger.spec.version = "3.0.1" :: paths: 47</text>
+  <text x="350" y="488" font-family="'Courier New', monospace" font-size="8" fill="#ffffff" opacity="0.1">npm run migrate :: refactor --engine ts5 --target es2024</text>
+
+
+  <!-- ===== SCAN LINE ===== -->
+  <rect x="0" y="0" width="960" height="2" fill="url(#titleGrad)" opacity="0.12">
+    <animate attributeName="y" values="-2;522" dur="6s" repeatCount="indefinite"/>
+  </rect>
+
+
+  <!-- ===== TITLE ===== -->
+  <text x="480" y="46" font-family="'Courier New', monospace" font-size="28" font-weight="bold" fill="url(#titleGrad)" text-anchor="middle" filter="url(#gTitle)">PROYECTOS EXTERNOS</text>
+  <text x="480" y="70" font-family="'Courier New', monospace" font-size="10" fill="#aaaacc" text-anchor="middle" letter-spacing="5" opacity="0.6">APIs · MESSAGE BROKER · CODE MODERNIZATION</text>
+  <line x1="240" y1="78" x2="720" y2="78" stroke="url(#titleGrad)" stroke-width="0.8" opacity="0.5"/>
+
+
+  <!-- ===== CORNER DECORS ===== -->
+  <path d="M 18 18 L 18 52 L 52 18 Z" fill="none" stroke="#bf00ff" stroke-width="1" opacity="0.35"/>
+  <path d="M 942 18 L 942 52 L 908 18 Z" fill="none" stroke="#00d4aa" stroke-width="1" opacity="0.35"/>
+  <path d="M 18 502 L 18 468 L 52 502 Z" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.35"/>
+  <path d="M 942 502 L 942 468 L 908 502 Z" fill="none" stroke="#bf00ff" stroke-width="1" opacity="0.35"/>
+
+  <!-- Main border -->
+  <rect x="1" y="1" width="958" height="518" rx="14" fill="none" stroke="#bf00ff" stroke-width="1" opacity="0.2"/>
+  <rect x="4" y="4" width="952" height="512" rx="12" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.05"/>
+
+</svg>

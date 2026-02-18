@@ -1,0 +1,522 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="shadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5"/>
+      <feOffset dx="0" dy="3"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.25"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <style>
+      @keyframes clickEffect {
+        0% { stroke: transparent; stroke-width: 0; }
+        5% { stroke: #1e293b; stroke-width: 3; }
+        100% { stroke: #1e293b; stroke-width: 3; opacity: 1; }
+      }
+      
+      @keyframes clickFade {
+        0%, 95% { stroke: #1e293b; stroke-width: 3; opacity: 1; }
+        100% { stroke: transparent; stroke-width: 0; opacity: 0; }
+      }
+      
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-15px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes slideInLeft {
+        from { transform: translateX(-50px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      
+      @keyframes slideInRight {
+        from { transform: translateX(50px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.8; transform: scale(0.98); }
+      }
+      
+      @keyframes flowDash {
+        0% { stroke-dashoffset: 20; }
+        100% { stroke-dashoffset: 0; }
+      }
+      
+      @keyframes checkAppear {
+        0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+        60% { transform: scale(1.15) rotate(5deg); }
+        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      }
+      
+      @keyframes progressFill {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+      
+      @keyframes confettiFall {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(80px) rotate(360deg); opacity: 0; }
+      }
+      
+      @keyframes shine {
+        0% { opacity: 0; transform: translateX(-100%); }
+        50% { opacity: 0.5; }
+        100% { opacity: 0; transform: translateX(100%); }
+      }
+      
+      .fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+      .slideInLeft { animation: slideInLeft 0.7s ease-out forwards; }
+      .slideInRight { animation: slideInRight 0.7s ease-out forwards; }
+      .pulse { animation: pulse 2s ease-in-out infinite; }
+      .flowDash { animation: flowDash 1.5s linear infinite; }
+      .checkAppear { animation: checkAppear 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+      .confetti { animation: confettiFall 2.5s ease-out forwards; }
+      
+      .card-option { transition: all 0.3s ease; cursor: pointer; }
+      .card-option:hover { transform: translateY(-5px); filter: brightness(1.05); }
+      .table-row { transition: fill 0.2s ease; }
+      .table-row:hover { fill: #eff6ff !important; }
+    </style>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1600" height="700" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="80" fill="#3b82f6" opacity="0.1"/>
+  <circle cx="1500" cy="600" r="100" fill="#8b5cf6" opacity="0.1"/>
+  
+  <!-- Main Title -->
+  <g class="fadeIn">
+    <text x="800" y="45" font-family="Arial, sans-serif" font-size="30" font-weight="bold" fill="#ffffff" text-anchor="middle">
+      Sistema de Gestión de Solicitudes
+    </text>
+    <text x="800" y="72" font-family="Arial, sans-serif" font-size="14" fill="#cbd5e1" text-anchor="middle">
+      Flujo de Trabajo - Proceso Automatizado de Operaciones
+    </text>
+  </g>
+  
+  <!-- ============================================ -->
+  <!-- PASO 1: SELECCIONAR OPERACIÓN -->
+  <!-- ============================================ -->
+  <g transform="translate(40, 130)">
+    <!-- Step Number Badge -->
+    <g class="fadeIn" style="animation-delay: 0.2s">
+      <circle cx="165" cy="0" r="28" fill="#ffffff" filter="url(#shadow)"/>
+      <circle cx="165" cy="0" r="24" fill="#3b82f6"/>
+      <text x="165" y="7" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+    </g>
+    
+    <!-- Title -->
+    <text x="165" y="50" font-family="Arial, sans-serif" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle" class="fadeIn" style="animation-delay: 0.3s">
+      Seleccionar Operación
+    </text>
+    
+    <!-- Container -->
+    <g class="slideInLeft" style="animation-delay: 0.4s">
+      <rect x="15" y="70" width="300" height="440" rx="20" fill="#ffffff" filter="url(#shadow)"/>
+      
+      <!-- Header bar -->
+      <rect x="15" y="70" width="300" height="50" rx="20" fill="#f8fafc"/>
+      <rect x="15" y="105" width="300" height="15" fill="#f8fafc"/>
+      <text x="165" y="102" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#64748b" text-anchor="middle">
+        Seleccione una opción
+      </text>
+      
+      <!-- Option 1: Corrección Datos Negocio (SELECTED) -->
+      <g transform="translate(15, 135)" class="card-option">
+        <rect x="20" y="0" width="260" height="105" rx="12" fill="#fef2f2" stroke="#ef4444" stroke-width="3"/>
+        
+        <!-- Shine effect -->
+        <rect x="20" y="0" width="260" height="105" rx="12" fill="url(#shineGradient)" opacity="0">
+          <animate attributeName="opacity" values="0;0.3;0" dur="3s" repeatCount="indefinite"/>
+        </rect>
+        <defs>
+          <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0" />
+            <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Icon circle -->
+        <circle cx="50" cy="52" r="22" fill="#ef4444" opacity="0.15"/>
+        <g transform="translate(37, 39)">
+          <rect x="5" y="3" width="18" height="23" rx="2" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+          <line x1="9" y1="9" x2="19" y2="9" stroke="#ef4444" stroke-width="2"/>
+          <line x1="9" y1="14" x2="19" y2="14" stroke="#ef4444" stroke-width="2"/>
+          <line x1="9" y1="19" x2="15" y2="19" stroke="#ef4444" stroke-width="2"/>
+          <!-- Edit icon -->
+          <circle cx="21" cy="20" r="4" fill="#ef4444"/>
+          <path d="M 19 22 L 21 18 L 23 20 Z" fill="#ffffff"/>
+        </g>
+        
+        <text x="90" y="42" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">
+          Corrección Datos Negocio
+        </text>
+        <text x="90" y="62" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+          Actualizar información
+        </text>
+        <text x="90" y="76" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+          empresarial
+        </text>
+        
+        <rect x="90" y="83" width="75" height="20" rx="10" fill="#ef4444"/>
+        <text x="127" y="97" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">
+          SELECCIONADA
+        </text>
+        
+        <!-- Selected indicator -->
+        <circle cx="255" cy="52" r="8" fill="#ef4444" class="pulse"/>
+      </g>
+      
+      <!-- Option 2: Corrección Datos Cliente -->
+      <g transform="translate(15, 255)" class="card-option">
+        <rect x="20" y="0" width="260" height="105" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+        
+        <circle cx="50" cy="52" r="22" fill="#8b5cf6" opacity="0.15"/>
+        <g transform="translate(35, 37)">
+          <circle cx="15" cy="13" r="9" fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
+          <path d="M 4 31 Q 4 22 15 22 Q 26 22 26 31" fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
+          <!-- Edit icon -->
+          <circle cx="23" cy="9" r="4" fill="#8b5cf6"/>
+          <path d="M 21 11 L 23 7 L 25 9 Z" fill="#ffffff"/>
+        </g>
+        
+        <text x="90" y="42" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">
+          Corrección Datos Cliente
+        </text>
+        <text x="90" y="62" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+          Modificar información
+        </text>
+        <text x="90" y="76" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+          personal
+        </text>
+        
+        <rect x="90" y="83" width="75" height="20" rx="10" fill="#ede9fe"/>
+        <text x="127" y="97" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="#6b21a8" text-anchor="middle">
+          Disponible
+        </text>
+      </g>
+      
+      <!-- Option 3: Generación Manual -->
+      <g transform="translate(15, 375)" class="card-option">
+        <rect x="20" y="0" width="260" height="105" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+        
+        <circle cx="50" cy="52" r="22" fill="#3b82f6" opacity="0.15"/>
+        <g transform="translate(37, 39)">
+          <rect x="5" y="6" width="18" height="23" rx="2" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+          <line x1="8" y1="2" x2="8" y2="9" stroke="#3b82f6" stroke-width="2.5"/>
+          <circle cx="8" cy="1" r="1.5" fill="#3b82f6"/>
+          <line x1="12" y1="13" x2="20" y2="13" stroke="#3b82f6" stroke-width="2"/>
+          <line x1="12" y1="18" x2="20" y2="18" stroke="#3b82f6" stroke-width="2"/>
+          <line x1="12" y1="23" x2="17" y2="23" stroke="#3b82f6" stroke-width="2"/>
+        </g>
+        
+        <text x="90" y="42" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#1e293b">
+          Generación Manual
+        </text>
+        <text x="90" y="62" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+          Crear registro
+        </text>
+        <text x="90" y="76" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+          manualmente
+        </text>
+        
+        <rect x="90" y="83" width="75" height="20" rx="10" fill="#dbeafe"/>
+        <text x="127" y="97" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="#1e40af" text-anchor="middle">
+          Disponible
+        </text>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Arrow 1 → 2 -->
+  <g class="fadeIn" style="animation-delay: 0.6s">
+    <defs>
+      <marker id="arrow1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+        <path d="M 0 0 L 7 3 L 0 6 Z" fill="#cbd5e1"/>
+      </marker>
+    </defs>
+    <path d="M 370 350 L 445 350" stroke="#cbd5e1" stroke-width="2.5" fill="none" 
+          stroke-dasharray="8,5" marker-end="url(#arrow1)" class="flowDash" opacity="0.7"/>
+  </g>
+  
+  <!-- ============================================ -->
+  <!-- PASO 2: REVISAR SOLICITUDES (TABLA EXCEL) -->
+  <!-- ============================================ -->
+  <g transform="translate(460, 130)">
+    <!-- Step Number Badge -->
+    <g class="fadeIn" style="animation-delay: 0.7s">
+      <circle cx="280" cy="0" r="28" fill="#ffffff" filter="url(#shadow)"/>
+      <circle cx="280" cy="0" r="24" fill="#3b82f6"/>
+      <text x="280" y="7" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+    </g>
+    
+    <!-- Title -->
+    <text x="280" y="50" font-family="Arial, sans-serif" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle" class="fadeIn" style="animation-delay: 0.8s">
+      Revisar Solicitudes
+    </text>
+    
+    <!-- Excel-style Table Container -->
+    <g class="fadeIn" style="animation-delay: 0.9s">
+      <rect x="15" y="70" width="530" height="440" rx="20" fill="#ffffff" filter="url(#shadow)"/>
+      
+      <!-- Excel header bar -->
+      <rect x="15" y="70" width="530" height="45" rx="20" fill="#1e293b"/>
+      <rect x="15" y="100" width="530" height="15" fill="#1e293b"/>
+      
+      <text x="30" y="100" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#ffffff">
+        📋 Lista de Solicitudes
+      </text>
+      <rect x="460" y="82" width="70" height="24" rx="12" fill="#3b82f6"/>
+      <text x="495" y="99" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">
+        5 Total
+      </text>
+      
+      <!-- Table Headers -->
+      <rect x="15" y="115" width="530" height="40" fill="#f8fafc"/>
+      <line x1="15" y1="155" x2="545" y2="155" stroke="#cbd5e1" stroke-width="2"/>
+      
+      <text x="35" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#475569">ID</text>
+      <text x="130" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#475569">Tipo</text>
+      <text x="305" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#475569">Cliente/Negocio</text>
+      <text x="435" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#475569">Estado</text>
+      <text x="508" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#475569">Fecha</text>
+      
+      <!-- Row 1: SOL0001 -->
+      <g class="table-row">
+        <rect x="15" y="155" width="530" height="55" fill="#ffffff"/>
+        <rect x="15" y="155" width="530" height="55" fill="none" stroke="transparent" stroke-width="0" rx="8">
+          <animate attributeName="stroke" values="transparent;#1e293b;#1e293b;transparent" 
+                   dur="1.2s" begin="1.5s" fill="freeze"/>
+          <animate attributeName="stroke-width" values="0;3;3;0" 
+                   dur="1.2s" begin="1.5s" fill="freeze"/>
+        </rect>
+        <line x1="15" y1="210" x2="545" y2="210" stroke="#e5e7eb" stroke-width="1"/>
+        
+        <text x="35" y="187" font-family="Consolas, monospace" font-size="12" font-weight="700" fill="#3b82f6">SOL0001</text>
+        <text x="130" y="187" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Corrección Datos Negocio</text>
+        <text x="305" y="187" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Empresa ABC S.A.</text>
+        
+        <rect x="423" y="175" width="78" height="22" rx="11" fill="#fef3c7"/>
+        <text x="462" y="190" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#92400e" text-anchor="middle">Pendiente</text>
+        
+        <text x="518" y="187" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">03/02/26</text>
+      </g>
+      
+      <!-- Row 2: SOL0002 -->
+      <g class="table-row">
+        <rect x="15" y="210" width="530" height="55" fill="#f9fafb"/>
+        <line x1="15" y1="265" x2="545" y2="265" stroke="#e5e7eb" stroke-width="1"/>
+        
+        <text x="35" y="242" font-family="Consolas, monospace" font-size="12" font-weight="700" fill="#3b82f6">SOL0002</text>
+        <text x="130" y="242" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Corrección Datos Cliente</text>
+        <text x="305" y="242" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Juan Pérez</text>
+        
+        <rect x="423" y="230" width="78" height="22" rx="11" fill="#dbeafe"/>
+        <text x="462" y="245" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#1e40af" text-anchor="middle">En Proceso</text>
+        
+        <text x="518" y="242" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">03/02/26</text>
+      </g>
+      
+      <!-- Row 3: SOL0003 -->
+      <g class="table-row">
+        <rect x="15" y="265" width="530" height="55" fill="#ffffff"/>
+        <line x1="15" y1="320" x2="545" y2="320" stroke="#e5e7eb" stroke-width="1"/>
+        
+        <text x="35" y="297" font-family="Consolas, monospace" font-size="12" font-weight="700" fill="#3b82f6">SOL0003</text>
+        <text x="130" y="297" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Generación Manual</text>
+        <text x="305" y="297" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">María López</text>
+        
+        <rect x="423" y="285" width="78" height="22" rx="11" fill="#fef3c7"/>
+        <text x="462" y="300" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#92400e" text-anchor="middle">Pendiente</text>
+        
+        <text x="518" y="297" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">03/02/26</text>
+      </g>
+      
+      <!-- Row 4: SOL0004 -->
+      <g class="table-row">
+        <rect x="15" y="320" width="530" height="55" fill="#f9fafb"/>
+        <line x1="15" y1="375" x2="545" y2="375" stroke="#e5e7eb" stroke-width="1"/>
+        
+        <text x="35" y="352" font-family="Consolas, monospace" font-size="12" font-weight="700" fill="#3b82f6">SOL0004</text>
+        <text x="130" y="352" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Corrección Datos Negocio</text>
+        <text x="305" y="352" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Tech Corp Ltd.</text>
+        
+        <rect x="423" y="340" width="78" height="22" rx="11" fill="#d1fae5"/>
+        <text x="462" y="355" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#065f46" text-anchor="middle">Completado</text>
+        
+        <text x="518" y="352" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">02/02/26</text>
+      </g>
+      
+      <!-- Row 5: SOL0005 -->
+      <g class="table-row">
+        <rect x="15" y="375" width="530" height="55" fill="#ffffff"/>
+        <line x1="15" y1="430" x2="545" y2="430" stroke="#e5e7eb" stroke-width="1"/>
+        
+        <text x="35" y="407" font-family="Consolas, monospace" font-size="12" font-weight="700" fill="#3b82f6">SOL0005</text>
+        <text x="130" y="407" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Corrección Datos Cliente</text>
+        <text x="305" y="407" font-family="Arial, sans-serif" font-size="11" fill="#1e293b">Carlos Ruiz</text>
+        
+        <rect x="423" y="395" width="78" height="22" rx="11" fill="#fef3c7"/>
+        <text x="462" y="410" font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#92400e" text-anchor="middle">Pendiente</text>
+        
+        <text x="518" y="407" font-family="Arial, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">03/02/26</text>
+      </g>
+      
+      <!-- Table Footer -->
+      <rect x="15" y="430" width="530" height="80" rx="0 0 20 20" fill="#f8fafc"/>
+      
+      <text x="30" y="458" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">
+        📊 Resumen de Solicitudes
+      </text>
+      <text x="30" y="480" font-family="Arial, sans-serif" font-size="11" fill="#64748b">
+        ✅ 1 Completado   |   ⏳ 3 Pendientes   |   🔄 1 En Proceso
+      </text>
+      <text x="30" y="498" font-family="Arial, sans-serif" font-size="10" fill="#94a3b8">
+        Última actualización: Hoy 10:45 AM
+      </text>
+    </g>
+  </g>
+  
+  <!-- Arrow 2 → 3 -->
+  <g class="fadeIn" style="animation-delay: 1.1s">
+    <defs>
+      <marker id="arrow2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+        <path d="M 0 0 L 7 3 L 0 6 Z" fill="#cbd5e1"/>
+      </marker>
+    </defs>
+    <path d="M 1005 350 L 1095 350" stroke="#cbd5e1" stroke-width="2.5" fill="none" 
+          stroke-dasharray="8,5" marker-end="url(#arrow2)" class="flowDash" opacity="0.7"/>
+  </g>
+  
+  <!-- ============================================ -->
+  <!-- PASO 3: OPERACIÓN EXITOSA -->
+  <!-- ============================================ -->
+  <g transform="translate(1110, 130)">
+    <!-- Step Number Badge -->
+    <g class="fadeIn" style="animation-delay: 1.2s">
+      <circle cx="210" cy="0" r="28" fill="#ffffff" filter="url(#shadow)"/>
+      <circle cx="210" cy="0" r="24" fill="#3b82f6"/>
+      <text x="210" y="7" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+    </g>
+    
+    <!-- Title -->
+    <text x="210" y="50" font-family="Arial, sans-serif" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle" class="fadeIn" style="animation-delay: 1.3s">
+      Confirmación
+    </text>
+    
+    <!-- Success Panel -->
+    <g class="slideInRight" style="animation-delay: 1.4s">
+      <rect x="15" y="70" width="390" height="440" rx="20" fill="#ffffff" stroke="#10b981" stroke-width="4" filter="url(#shadow)"/>
+      
+      <!-- Confetti particles -->
+      <circle cx="70" cy="120" r="5" fill="#fbbf24" class="confetti" style="animation-delay: 2.8s; animation-duration: 2s;"/>
+      <circle cx="350" cy="135" r="4" fill="#3b82f6" class="confetti" style="animation-delay: 2.9s; animation-duration: 2.3s;"/>
+      <circle cx="110" cy="110" r="4" fill="#ef4444" class="confetti" style="animation-delay: 3s; animation-duration: 2.1s;"/>
+      <circle cx="320" cy="125" r="5" fill="#8b5cf6" class="confetti" style="animation-delay: 3.1s; animation-duration: 2.4s;"/>
+      <circle cx="150" cy="115" r="3" fill="#10b981" class="confetti" style="animation-delay: 3.2s; animation-duration: 2.2s;"/>
+      <circle cx="290" cy="120" r="4" fill="#f59e0b" class="confetti" style="animation-delay: 3.3s; animation-duration: 2.5s;"/>
+      
+      <!-- Large success checkmark -->
+      <g transform="translate(155, 125)" class="checkAppear" style="animation-delay: 2.7s">
+        <circle cx="55" cy="55" r="50" fill="#10b981" filter="url(#glow)"/>
+        <circle cx="55" cy="55" r="42" fill="#ffffff"/>
+        <circle cx="55" cy="55" r="38" fill="#10b981"/>
+        <path d="M 38 55 L 48 68 L 76 38" stroke="#ffffff" stroke-width="6" fill="none" 
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      
+      <!-- Success message -->
+      <text x="210" y="265" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#065f46" text-anchor="middle">
+        ¡Operación Exitosa!
+      </text>
+      
+      <text x="210" y="295" font-family="Arial, sans-serif" font-size="14" fill="#64748b" text-anchor="middle">
+        Solicitud procesada correctamente
+      </text>
+      
+      <!-- Details panel -->
+      <g transform="translate(40, 315)">
+        <rect width="330" height="135" rx="15" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+        
+        <!-- Detail rows -->
+        <g transform="translate(20, 30)">
+          <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" fill="#065f46" font-weight="600">
+            📋 ID de Transacción:
+          </text>
+          <text x="290" y="0" font-family="Consolas, monospace" font-size="12" fill="#10b981" text-anchor="end" font-weight="bold">
+            TXN-2026-0001
+          </text>
+        </g>
+        
+        <line x1="20" y1="50" x2="310" y2="50" stroke="#86efac" stroke-width="1" opacity="0.5"/>
+        
+        <g transform="translate(20, 70)">
+          <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" fill="#065f46" font-weight="600">
+            🕒 Timestamp:
+          </text>
+          <text x="290" y="0" font-family="Consolas, monospace" font-size="11" fill="#64748b" text-anchor="end">
+            03/02/2026 - 10:45:32
+          </text>
+        </g>
+        
+        <line x1="20" y1="90" x2="310" y2="90" stroke="#86efac" stroke-width="1" opacity="0.5"/>
+        
+        <g transform="translate(20, 110)">
+          <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" fill="#065f46" font-weight="600">
+            ✅ Registros Afectados:
+          </text>
+          <text x="290" y="0" font-family="Arial, sans-serif" font-size="12" fill="#10b981" text-anchor="end" font-weight="bold">
+            3 actualizados
+          </text>
+        </g>
+      </g>
+      
+      <!-- Progress bar -->
+      <g transform="translate(40, 465)">
+        <rect width="330" height="10" rx="5" fill="#e5e7eb"/>
+        <rect width="0" height="10" rx="5" fill="#10b981">
+          <animate attributeName="width" from="0" to="330" dur="2s" fill="freeze" begin="3s"/>
+        </rect>
+        
+        <text x="165" y="30" font-family="Arial, sans-serif" font-size="11" fill="#10b981" text-anchor="middle" font-weight="700">
+          100% COMPLETADO
+        </text>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Footer -->
+  <g transform="translate(0, 640)" class="fadeIn" style="animation-delay: 2.2s">
+    <line x1="100" y1="0" x2="1500" y2="0" stroke="#cbd5e1" stroke-width="1" opacity="0.3"/>
+    
+    <text x="800" y="25" font-family="Arial, sans-serif" font-size="13" font-weight="600" fill="#e2e8f0" text-anchor="middle">
+      💻 Stack Tecnológico: Angular | Spring WebFlux | Reactive Programming | MongoDB | Redis | Docker
+    </text>
+    <text x="800" y="48" font-family="Arial, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Ambiente: Producción v2.1.0 | © 2026 Sistema de Gestión
+    </text>
+  </g>
+</svg>
